@@ -44,7 +44,7 @@
 /* ═══════════════════════════════════════════
    COUNTDOWN — shared logic
 ═══════════════════════════════════════════ */
-const EVENT_DATE = new Date('2026-06-28T08:00:00');
+const EVENT_DATE = new Date('2026-06-28T08:00:00Z');
 
 function getCountdownValues() {
   const diff = Math.max(0, EVENT_DATE - new Date());
@@ -346,13 +346,19 @@ ${extra ? extra + '\n\n' : ''}🔗 Mais informações: ${link}
 ${nome ? `— ${nome}` : ''}`,
 
   amigavel: (nome, link, extra) =>
-`🦌 Olá! Já sabes do *Desfile de Ordem Unida* do clube Palanca Negra? 🎉
+`📢 KWÁS KWÁS, DESBRAVADORES PALANCA NEGRA! 🤩🚩
+  Está a chegar um dos momentos mais aguardados do ano! 🎉🔥
+  
+  Já sabes do *Desfile de Ordem Unida* do clube Palanca Negra?
 
 📌 Tema: *"Quebrando Silêncio"*
 📅 28 de Junho de 2026 · Luanda
 
-${extra ? extra + '\n\n' : ''}Fica a par de tudo aqui 👇
+${extra ? extra + '\n\n' : ''}👀 Fica atento e acompanha todas as novidades! 👇
 🔗 ${link}
+
+💛 Uma marcha, uma mensagem, um propósito.
+🚩 Juntos fazemos história!
 
 ${nome ? `Enviado por ${nome} 🙌` : ''}`,
 
@@ -367,12 +373,16 @@ Tema INCRÍVEL: *"QUEBRANDO SILÊNCIO, UMA VERDADE DESCONHECIDA"*
 ${extra ? '💬 ' + extra + '\n\n' : ''}👀 Tudo sobre o evento:
 ${link}
 
+#DesbravadoresPalancaNegra 🔥
+#QuebrandoOSilêncio 🤫
+#JuntosFazemosHistória ✨
+
 ${nome ? `🤝 ${nome}` : ''}`,
 };
 
 function buildMsg() {
   const nome = document.getElementById('shareNome').value.trim();
-  const link = document.getElementById('shareLink').value.trim() || 'https://palanca-negra.ao';
+  const link = document.getElementById('shareLink').value.trim() || 'https://desfile-palanca-negra.vercel.app';
   const extra = document.getElementById('shareExtra').value.trim();
   const tom = document.getElementById('shareTom').value;
   return TEMPLATES[tom](nome, link, extra);

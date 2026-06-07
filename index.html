@@ -1,982 +1,1730 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt" data-theme="dark">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Desfile Palanca Negra 2026 · Quebrando Silêncio</title>
+  <head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<meta property="og:title" content="Desfile Palanca Negra 2026 – Quebrando Silêncio">
+	<meta property="og:description" content="Participe do maior desfile de ordem unida do Clube de Desbravadores Palanca Negra. 28 de Junho em Luanda.">
+	<meta property="og:image" content="https://desfile-palanca-negra.vercel.app/assets/logo_pn.jpg">
+	<meta property="og:url" content="https://desfile-palanca-negra.vercel.app/">
+	<meta property="og:type" content="website">
+	<title>Desfile Palanca Negra 2026 · Quebrando Silêncio</title>
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+	  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,600&display=swap"
+	  rel="stylesheet"
+	/>
 
-<!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+	<!-- Leaflet -->
+	<link
+	  rel="stylesheet"
+	  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+	/>
 
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+	<!-- GSAP -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
 
+	<link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+	<!-- ════════════════════════════════ HEADER ════ -->
+	<header id="header">
+	  <div class="nav-inner">
+		<a href="#hero" class="nav-brand">
+		  <div class="nav-logo-img">
+			<!-- LOGO: substitui pelo caminho real da imagem -->
+			<img
+			  src="assets/logo_pn.jpg"
+			  alt="Palanca Negra"
+			  onerror="
+				this.style.display = 'none';
+				this.nextElementSibling.style.display = 'flex';
+			  "
+			/>
+			<span class="logo-fallback" style="display: none">PN</span>
+		  </div>
+		  <div class="nav-brand-text">
+			<span class="club">Clube de Desbravadores</span>
+			<span class="name">Palanca Negra</span>
+		  </div>
+		</a>
 
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+		<ul class="nav-links">
+		  <li><a href="#sobre">Sobre</a></li>
+		  <li><a href="#cronograma">Cronograma</a></li>
+		  <li><a href="#rota">Rota</a></li>
+		  <li><a href="#comissoes">Comissões</a></li>
+		  <li><a href="#visitas">Visitas</a></li>
+		  <li><a href="#partilha">Partilhar</a></li>
+		  <li><a href="#transmissao">Ao Vivo</a></li>
+		  <li><a href="#contacto">Contacto</a></li>
+		</ul>
 
-<!-- ════════════════════════════════ HEADER ════ -->
-<header id="header">
-  <div class="nav-inner">
-    <a href="#hero" class="nav-brand">
-      <div class="nav-logo-img">
-        <!-- LOGO: substitui pelo caminho real da imagem -->
-        <img src="assets/logo_pn.jpg" alt="Palanca Negra"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <span class="logo-fallback" style="display:none">PN</span>
-      </div>
-      <div class="nav-brand-text">
-        <span class="club">Clube de Desbravadores</span>
-        <span class="name">Palanca Negra</span>
-      </div>
-    </a>
-
-    <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#cronograma">Cronograma</a></li>
-      <li><a href="#rota">Rota</a></li>
-      <li><a href="#comissoes">Comissões</a></li>
-      <li><a href="#visitas">Visitas</a></li>
-      <li><a href="#partilha">Partilhar</a></li>
-      <li><a href="#transmissao">Ao Vivo</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" title="Mudar tema" aria-label="Mudar tema">
-        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
-          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-      <a href="#contagem" class="btn btn-primary" style="padding:8px 20px;font-size:12px;">Ver Contagem</a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- Mobile nav -->
-<nav class="mobile-nav" id="mobileNav">
-  <a href="#sobre" onclick="closeMobileNav()">Sobre</a>
-  <a href="#cronograma" onclick="closeMobileNav()">Cronograma</a>
-  <a href="#rota" onclick="closeMobileNav()">Rota</a>
-  <a href="#comissoes" onclick="closeMobileNav()">Comissões</a>
-  <a href="#visitas" onclick="closeMobileNav()">Visitas</a>
-  <a href="#partilha" onclick="closeMobileNav()">Partilhar</a>
-  <a href="#transmissao" onclick="closeMobileNav()">Ao Vivo</a>
-  <a href="#contacto" onclick="closeMobileNav()">Contacto</a>
-</nav>
-
-
-<!-- ════════════════════════════════ HERO ════ -->
-<section id="hero">
-  <!-- Background image com parallax (GSAP) -->
-  <div class="hero-bg-img" id="heroBgImg">
-    <!-- LOGO/BG: usa assets/logo_pn.jpg como fundo do hero -->
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-grain"></div>
-  <div class="hero-fade"></div>
-
-  <div class="hero-content">
-    <div class="container">
-      <div class="hero-eyebrow" id="heroEyebrow">
-        Clube de Desbravadores Palanca Negra · Desfile de Ordem Unida 2026
-      </div>
-
-      <h1 class="hero-h1" id="heroH1">
-        Quebrando<br>
-        <em>Silêncio</em>
-      </h1>
-
-      <p class="hero-subtitle" id="heroSubtitle">
-        Uma Verdade Desconhecida
-        <!-- SUBTEMA: adiciona em baixo quando for definido
-        <span style="display:block;font-size:0.75em;opacity:0.6;margin-top:4px">[Subtema aqui]</span>
-        -->
-      </p>
-
-      <div class="hero-meta" id="heroMeta">
-        <div class="hero-meta-pill"><span class="dot"></span>28 de Junho de 2026</div>
-        <div class="hero-meta-pill"><span class="dot"></span>Luanda, Angola</div>
-        <div class="hero-meta-pill"><span class="dot"></span>IASD Central de Luanda</div>
-      </div>
-
-      <div class="hero-actions" id="heroActions">
-        <a href="#cronograma" class="btn btn-primary">Ver Cronograma</a>
-        <a href="#rota" class="btn btn-ghost">Ver Rota</a>
-        <a href="#transmissao" class="btn btn-gold">📺 Transmissão</a>
-      </div>
-
-      <div class="hero-countdown" id="heroCountdown">
-        <div class="hcd-item"><span class="hcd-num" id="hcd-d">--</span><span class="hcd-lbl">Dias</span></div>
-        <div class="hcd-sep">:</div>
-        <div class="hcd-item"><span class="hcd-num" id="hcd-h">--</span><span class="hcd-lbl">Horas</span></div>
-        <div class="hcd-sep">:</div>
-        <div class="hcd-item"><span class="hcd-num" id="hcd-m">--</span><span class="hcd-lbl">Min</span></div>
-        <div class="hcd-sep">:</div>
-        <div class="hcd-item"><span class="hcd-num" id="hcd-s">--</span><span class="hcd-lbl">Seg</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="scroll-hint" id="scrollHint">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
-    Scroll
-  </div>
-</section>
-
-
-<!-- ════════════════════════════════ COUNTDOWN ════ -->
-<div id="contagem" class="section-sm">
-  <div class="container">
-    <p style="text-align:center;font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:var(--s4)">
-      Contagem para o Desfile · 28 Junho 2026
-    </p>
-    <div class="cd-strip">
-
-      <!-- Dias -->
-      <div class="cd-block gs-fade">
-        <div class="cd-ring">
-          <svg width="96" height="96"><circle class="track" cx="48" cy="48" r="42" stroke-dasharray="264"/><circle class="progress" id="prog-d" cx="48" cy="48" r="42" stroke-dasharray="264" stroke-dashoffset="264"/></svg>
-          <div class="cd-inner"><span class="cd-num" id="cd-d">--</span><span class="cd-unit">dias</span></div>
-        </div>
-      </div>
-      <div class="cd-sep-v gs-fade"></div>
-
-      <!-- Horas -->
-      <div class="cd-block gs-fade">
-        <div class="cd-ring">
-          <svg width="96" height="96"><circle class="track" cx="48" cy="48" r="42" stroke-dasharray="264"/><circle class="progress" id="prog-h" cx="48" cy="48" r="42" stroke-dasharray="264" stroke-dashoffset="264"/></svg>
-          <div class="cd-inner"><span class="cd-num" id="cd-h">--</span><span class="cd-unit">horas</span></div>
-        </div>
-      </div>
-      <div class="cd-sep-v gs-fade"></div>
-
-      <!-- Minutos -->
-      <div class="cd-block gs-fade">
-        <div class="cd-ring">
-          <svg width="96" height="96"><circle class="track" cx="48" cy="48" r="42" stroke-dasharray="264"/><circle class="progress" id="prog-m" cx="48" cy="48" r="42" stroke-dasharray="264" stroke-dashoffset="264"/></svg>
-          <div class="cd-inner"><span class="cd-num" id="cd-m">--</span><span class="cd-unit">min</span></div>
-        </div>
-      </div>
-      <div class="cd-sep-v gs-fade"></div>
-
-      <!-- Segundos -->
-      <div class="cd-block gs-fade">
-        <div class="cd-ring">
-          <svg width="96" height="96"><circle class="track" cx="48" cy="48" r="42" stroke-dasharray="264"/><circle class="progress" id="prog-s" cx="48" cy="48" r="42" stroke-dasharray="264" stroke-dashoffset="264"/></svg>
-          <div class="cd-inner"><span class="cd-num" id="cd-s">--</span><span class="cd-unit">seg</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════ SOBRE ════ -->
-<section id="sobre" class="section">
-  <div class="container">
-    <div class="sobre-layout">
-      <div>
-        <p class="section-label gs-fade">Quem Somos</p>
-        <h2 class="section-title gs-fade" style="margin-bottom:var(--s3)">Palanca Negra</h2>
-        <div class="section-desc gs-fade">
-          <!-- EDITAR: texto sobre o clube -->
-          <p>O Clube de Desbravadores Palanca Negra é uma organização juvenil vinculada à Igreja Adventista do Sétimo Dia, dedicada ao desenvolvimento integral dos jovens nos pilares físico, mental, social e espiritual.</p>
-          <p style="margin-top:var(--s2)">Fundado em <strong style="color:var(--text-primary)">1993</strong>, o clube é reconhecido pelo seu espírito de disciplina, serviço e fé.</p>
-          <!-- FIM EDITAR -->
-        </div>
-        <div class="info-grid gs-fade" style="margin-top:var(--s4)">
-          <div class="info-tile">
-            <div class="i-label">Igreja base</div>
-            <div class="i-value">Igreja Adventista do Sétimo Dia - Central Luanda</div>
-          </div>
-          <div class="info-tile">
-            <div class="i-label">Membros activos</div>
-            <div class="i-value">388</div>
-          </div>
-          <div class="info-tile">
-            <div class="i-label">Classe</div>
-            <div class="i-value">Classes Regulares (Amigo a Guia) e Avançadas</div>
-          </div>
-          <div class="info-tile">
-            <div class="i-label">Fundação</div>
-            <div class="i-value">8 de Setembro de 1993</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sobre-card gs-fade">
-        <h3>Sobre o Desfile</h3>
-        <!-- EDITAR -->
-        <p>O Desfile de Ordem Unida é uma das expressões mais emblemáticas do movimento Desbravador — disciplina colectiva, unidade e testemunho público da fé.</p>
-        <p>Marcha coordenada, uniformes impecáveis e comportamento exemplar pelas ruas de Luanda, proclamando a mensagem do tema anual.</p>
-        <!-- FIM EDITAR -->
-        <div class="highlight-box">
-          "Quebrando Silêncio, Uma Verdade Desconhecida" — o clube marcha para proclamar uma mensagem de coragem e revelação.
-        </div>
-        <div style="margin-top:var(--s3);display:flex;flex-direction:column;gap:10px">
-          <div class="info-tile">
-            <div class="i-label">Data</div>
-            <div class="i-value">28 de Junho de 2026</div>
-          </div>
-          <div class="info-tile">
-            <div class="i-label">Hora de partida</div>
-            <div class="i-value">[HH:MM]</div>
-          </div>
-          <div class="info-tile">
-            <div class="i-label">Distância estimada</div>
-            <div class="i-value">≈ 3.6 km</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ════════════════════════════════ CRONOGRAMA ════ -->
-<section id="cronograma" class="section">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:var(--s6)">
-      <p class="section-label gs-fade" style="justify-content:center">Programação</p>
-      <h2 class="section-title gs-fade">Cronograma · 28 Jun 2026</h2>
-    </div>
-
-    <div class="timeline-wrap">
-      <div class="timeline-rail"></div>
-
-      <!--
-        ═══════════════════════════════════════════
-        COMO ADICIONAR EVENTOS AO CRONOGRAMA:
-        Copia o bloco .tl-item abaixo e preenche:
-        - .tl-time: hora e AM/PM
-        - .tl-tag: categoria (Concentração / Desfile / Encerramento...)
-          Para evento principal, adiciona class="tag-gold"
-        - h4: título do evento
-        - p: descrição
-        Para ponto de destaque (dot dourado), usa class="tl-dot gold-dot"
-        ═══════════════════════════════════════════
-      -->
-
-      <div class="tl-item gs-fade">
-        <div class="tl-time">[HH:MM]<small>AM</small></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <span class="tl-tag">Concentração</span>
-          <h4>Concentração Geral</h4>
-          <p>Concentração de todos os membros na IASD Central de Luanda. Verificação de uniformes e equipamentos.</p>
-        </div>
-      </div>
-
-      <div class="tl-item gs-fade">
-        <div class="tl-time">[HH:MM]<small>AM</small></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <span class="tl-tag">Formação</span>
-          <h4>Instrução de Formação</h4>
-          <p>Últimas instruções, formação dos pelotões e ensaio das marchas.</p>
-        </div>
-      </div>
-
-      <div class="tl-item gs-fade">
-        <div class="tl-time">[HH:MM]<small>AM</small></div>
-        <div class="tl-dot gold-dot"></div>
-        <div class="tl-body">
-          <span class="tl-tag tag-gold">Início do Desfile</span>
-          <h4>Partida Oficial</h4>
-          <p>Início do Desfile de Ordem Unida — saída da IASD Central de Luanda pela Rua Rey Katyavala.</p>
-        </div>
-      </div>
-
-      <div class="tl-item gs-fade">
-        <div class="tl-time">[HH:MM]<small>AM</small></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <span class="tl-tag">Rota</span>
-          <h4>[Ponto intermédio do percurso]</h4>
-          <p>Passagem por [local / rua de referência]. [Descrição ou nota especial deste ponto.] </p>
-        </div>
-      </div>
-
-      <div class="tl-item gs-fade">
-        <div class="tl-time">[HH:MM]<small>AM</small></div>
-        <div class="tl-dot gold-dot"></div>
-        <div class="tl-body">
-          <span class="tl-tag tag-gold">Chegada</span>
-          <h4>Chegada ao Destino Final</h4>
-          <p>Regresso à Rua Rey Katyavala — conclusão do percurso.</p>
-        </div>
-      </div>
-
-      <div class="tl-item gs-fade">
-        <div class="tl-time">[HH:MM]<small>AM</small></div>
-        <div class="tl-dot"></div>
-        <div class="tl-body">
-          <span class="tl-tag">Encerramento</span>
-          <h4>Cerimónia de Encerramento</h4>
-          <p>[Descrição da cerimónia de encerramento, premiação, discurso, etc.]</p>
-        </div>
-      </div>
-
-      <!-- ADICIONA MAIS EVENTOS AQUI -->
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ════════════════════════════════ ROTA ════ -->
-<section id="rota" class="section">
-  <div class="container">
-    <div style="margin-bottom:var(--s4)">
-      <p class="section-label gs-fade">Percurso</p>
-      <h2 class="section-title gs-fade" style="margin-bottom:var(--s2)">Rota do Desfile</h2>
-      <p class="section-desc gs-fade">Percurso pelas ruas de Luanda · 28 de Junho de 2026</p>
-    </div>
-
-    <div class="rota-layout">
-      <div id="map" class="gs-fade"></div>
-
-      <div class="rota-sidebar gs-fade">
-		<div class="route-step">
-		  <div class="step-num">1</div>
-		  <div><div class="step-name">IASD Central de Luanda</div><div class="step-note">Rua Rey Katyavala · Partida / Chegada</div></div>
-		</div>
-		<div class="route-step">
-		  <div class="step-num">2</div>
-		  <div><div class="step-name">Rua Rey Katyavala → Avenida de Portugal</div></div>
-		</div>
-		<div class="route-step">
-		  <div class="step-num">3</div>
-		  <div><div class="step-name">Avenida de Portugal → Rua Amílcar Cabral</div></div>
-		</div>
-		<div class="route-step">
-		  <div class="step-num">4</div>
-		  <div><div class="step-name">Rua Amílcar Cabral → Rua da Missão</div></div>
-		</div>
-		<div class="route-step">
-		  <div class="step-num">5</div>
-		  <div><div class="step-name">Rua da Missão → Avenida Comandante Valódia</div></div>
-		</div>
-		<div class="route-step">
-		  <div class="step-num">6</div>
-		  <div><div class="step-name">Avenida Comandante Valódia → Alameda Ho Chi Minh</div></div>
-		</div>
-		<div class="route-step">
-		  <div class="step-num">7</div>
-		  <div><div class="step-name">Alameda Ho Chi Minh → Rua Rey Katyavala</div></div>
-		</div>
-		<div class="route-step">
-		  <div class="step-num">8</div>
-		  <div><div class="step-name">Chegada à IASD Central de Luanda</div><div class="step-note">Fim do percurso</div></div>
+		<div class="nav-actions">
+		  <button
+			class="theme-toggle"
+			id="themeToggle"
+			title="Mudar tema"
+			aria-label="Mudar tema"
+		  >
+			<svg
+			  id="icon-sun"
+			  width="18"
+			  height="18"
+			  viewBox="0 0 24 24"
+			  fill="none"
+			  stroke="currentColor"
+			  stroke-width="2"
+			  style="display: none"
+			>
+			  <circle cx="12" cy="12" r="5" />
+			  <line x1="12" y1="1" x2="12" y2="3" />
+			  <line x1="12" y1="21" x2="12" y2="23" />
+			  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+			  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+			  <line x1="1" y1="12" x2="3" y2="12" />
+			  <line x1="21" y1="12" x2="23" y2="12" />
+			  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+			  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+			</svg>
+			<svg
+			  id="icon-moon"
+			  width="18"
+			  height="18"
+			  viewBox="0 0 24 24"
+			  fill="none"
+			  stroke="currentColor"
+			  stroke-width="2"
+			>
+			  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+			</svg>
+		  </button>
+		  <a
+			href="#contagem"
+			class="btn btn-primary"
+			style="padding: 8px 20px; font-size: 12px"
+			>Ver Contagem</a
+		  >
+		  <button class="hamburger" id="hamburger" aria-label="Menu">
+			<span></span><span></span><span></span>
+		  </button>
 		</div>
 	  </div>
-    </div>
+	</header>
 
-    <div class="rota-stats gs-fade">
-      <div class="rota-stat"><span class="rs-val">≈3.6</span><div class="rs-lbl">Km totais</div></div>
-      <div class="rota-stat"><span class="rs-val">7</span><div class="rs-lbl">Pontos de rota</div></div>
-      <div class="rota-stat"><span class="rs-val">≈45</span><div class="rs-lbl">Min estimados</div></div>
-    </div>
-  </div>
-</section>
+	<!-- Mobile nav -->
+	<nav class="mobile-nav" id="mobileNav">
+	  <a href="#sobre" onclick="closeMobileNav()">Sobre</a>
+	  <a href="#cronograma" onclick="closeMobileNav()">Cronograma</a>
+	  <a href="#rota" onclick="closeMobileNav()">Rota</a>
+	  <a href="#comissoes" onclick="closeMobileNav()">Comissões</a>
+	  <a href="#visitas" onclick="closeMobileNav()">Visitas</a>
+	  <a href="#partilha" onclick="closeMobileNav()">Partilhar</a>
+	  <a href="#transmissao" onclick="closeMobileNav()">Ao Vivo</a>
+	  <a href="#contacto" onclick="closeMobileNav()">Contacto</a>
+	</nav>
 
+	<!-- ════════════════════════════════ HERO ════ -->
+	<section id="hero">
+	  <!-- Background image com parallax (GSAP) -->
+	  <div class="hero-bg-img" id="heroBgImg">
+		<!-- LOGO/BG: usa assets/logo_pn.jpg como fundo do hero -->
+	  </div>
+	  <div class="hero-overlay"></div>
+	  <div class="hero-grain"></div>
+	  <div class="hero-fade"></div>
 
-<!-- ════════════════════════════════ COMISSÕES ════ -->
-<section id="comissoes" class="section">
-  <div class="container">
-    <div style="margin-bottom:var(--s4)">
-      <p class="section-label gs-fade">Equipa</p>
-      <h2 class="section-title gs-fade" style="margin-bottom:var(--s2)">Comissões & Departamentos</h2>
-    </div>
-
-    <!--
-      ═══════════════════════════════════════════
-      COMO ADICIONAR UM DEPARTAMENTO:
-      1. Adiciona um botão .dept-btn com onclick="switchDept(this,'ID')"
-      2. Adiciona um .dept-panel com o id="dept-ID"
-      ═══════════════════════════════════════════
-    -->
-    <div class="dept-nav gs-fade">
-      <button class="dept-btn active" onclick="switchDept(this,'direcao')">Direcção</button>
-      <button class="dept-btn" onclick="switchDept(this,'ordem-unida')">Ordem Unida</button>
-      <button class="dept-btn" onclick="switchDept(this,'social')">Social</button>
-      <button class="dept-btn" onclick="switchDept(this,'musica')">Música</button>
-      <button class="dept-btn" onclick="switchDept(this,'instrutores')">Instrutores</button>
-      <!-- ADICIONA MAIS DEPARTAMENTOS AQUI -->
-    </div>
-
-    <!-- ══ DIRECÇÃO ══ -->
-    <div class="dept-panel active" id="dept-direcao">
-      <div class="dept-header">
-        <h3>Direcção do Clube</h3>
-      </div>
-      <div class="members-grid">
-
-        <!--
-          ═══════════════════════════════════════════
-          COMO ADICIONAR UM MEMBRO:
-          Copia este bloco .member-card e:
-          - Troca src="assets/img_temporary.jpg" pela foto real
-          - Preenche [Nome Completo] e [Cargo]
-          ═══════════════════════════════════════════
-        -->
-        <div class="member-card">
-          <div class="member-photo">
-            <img src="assets/pedro_reinaldo.jpg" alt="Pedro Reinaldo"
-              onerror="this.parentElement.classList.add('member-photo-ph-mode')"/>
-          </div>
-          <div class="member-info">
-            <div class="m-name">Pedro Reinaldo</div>
-            <div class="m-role">Director do Clube</div>
-          </div>
-        </div>
-
-        <div class="member-card">
-          <div class="member-photo">
-            <img src="assets/denis_sokis.jpg" alt="Denis Sokis"/>
-          </div>
-          <div class="member-info">
-            <div class="m-name">Denis Sokis</div>
-            <div class="m-role">Director Assiciado do Clube</div>
-          </div>
-        </div>
-
-        <div class="member-card">
-          <div class="member-photo">
-            <img src="assets/winona_mateus.jpg" alt="Winona Mateus"/>
-          </div>
-          <div class="member-info">
-            <div class="m-name">Winona Mateus</div>
-            <div class="m-role">Directora Assiciado do Clube</div>
-          </div>
-        </div>
-
-        <!--div class="member-card">
-          <div class="member-photo">
-            <img src="assets/img_temporary.jpg" alt="Membro"/>
-          </div>
-          <div class="member-info">
-            <div class="m-name">[Nome Completo]</div>
-            <div class="m-role">Tesoureiro(a)</div>
-          </div>
-        </div-->
-        <!-- ADICIONA MAIS MEMBROS AQUI -->
-      </div>
-    </div>
-
-    <!-- ══ ORDEM UNIDA ══ -->
-    <div class="dept-panel" id="dept-ordem-unida">
-      <div class="dept-header"><h3>Ordem Unida</h3></div>
-      <div class="members-grid">
-        <div class="member-card">
-          <div class="member-photo"><img src="assets/pedro_fula.jpg" alt="Pedro Fula"/></div>
-          <div class="member-info"><div class="m-name">Pedro Fula</div><div class="m-role">Chefe de Ordem Unida</div></div>
-        </div>
-        <div class="member-card">
-          <div class="member-photo"><img src="assets/img_temporary.jpg" alt="Membro"/></div>
-          <div class="member-info"><div class="m-name">[Nome Completo]</div><div class="m-role">Instrutor(a)</div></div>
-        </div>
-        <!-- ADICIONA MAIS MEMBROS AQUI -->
-      </div>
-    </div>
-
-    <!-- ══ SOCIAL ══ -->
-    <div class="dept-panel" id="dept-social">
-      <div class="dept-header"><h3>Departamento Social</h3></div>
-      <div class="members-grid">
-        <div class="member-card">
-          <div class="member-photo"><img src="assets/img_temporary.jpg" alt="Membro"/></div>
-          <div class="member-info"><div class="m-name">[Nome Completo]</div><div class="m-role">Responsável Social</div></div>
-        </div>
-        <div class="member-card">
-          <div class="member-photo"><img src="assets/img_temporary.jpg" alt="Membro"/></div>
-          <div class="member-info"><div class="m-name">[Nome Completo]</div><div class="m-role">Comunicação Digital</div></div>
-        </div>
-        <!-- ADICIONA MAIS MEMBROS AQUI -->
-      </div>
-    </div>
-
-    <!-- ══ MÚSICA ══ -->
-    <div class="dept-panel" id="dept-musica">
-      <div class="dept-header"><h3>Departamento de Música</h3></div>
-      <div class="members-grid">
-        <div class="member-card">
-          <div class="member-photo"><img src="assets/lisandra_mazanga.jpg" alt="Lisandra Mazanga"/></div>
-          <div class="member-info"><div class="m-name">Lisandra Mazanga</div><div class="m-role">Maestro / Dir. Musical</div></div>
-        </div>
-		<div class="member-card">
-			<div class="member-photo"><img src="assets/delcio_samba.jpg" alt="Delcio Samba"/></div>
-			<div class="member-info"><div class="m-name">Délcio Samba</div><div class="m-role">Maestro / Dir. Musical</div></div>
+	  <div class="hero-content">
+		<div class="container">
+		  <div class="hero-eyebrow" id="heroEyebrow">
+			Clube de Desbravadores Palanca Negra · Desfile de Ordem Unida 2026
 		  </div>
-        <!-- ADICIONA MAIS MEMBROS AQUI -->
-      </div>
-    </div>
 
-    <!-- ══ INSTRUTORES ══ -->
-    <div class="dept-panel" id="dept-instrutores">
-      <div class="dept-header"><h3>Instrutores</h3></div>
-      <div class="members-grid">
-        <div class="member-card">
-          <div class="member-photo"><img src="assets/adriano_cussumala.jpg" alt="Adriano Cussumala"/></div>
-          <div class="member-info"><div class="m-name">Adriano Cussumala</div><div class="m-role">Chefe dos Instrutores</div></div>
-        </div>
-        <!-- ADICIONA MAIS MEMBROS AQUI -->
-      </div>
-    </div>
+		  <h1 class="hero-h1" id="heroH1">
+			Quebrando<br />
+			<em>Silêncio</em>
+		  </h1>
 
-  </div>
-</section>
+		  <p class="hero-subtitle" id="heroSubtitle">
+			Uma Verdade Desconhecida
+			<!-- SUBTEMA: adiciona em baixo quando for definido
+		<span style="display:block;font-size:0.75em;opacity:0.6;margin-top:4px">[Subtema aqui]</span>
+		-->
+		  </p>
 
+		  <div class="hero-meta" id="heroMeta">
+			<div class="hero-meta-pill">
+			  <span class="dot"></span>28 de Junho de 2026
+			</div>
+			<div class="hero-meta-pill">
+			  <span class="dot"></span>Luanda, Angola
+			</div>
+			<div class="hero-meta-pill">
+			  <span class="dot"></span>IASD Central de Luanda
+			</div>
+		  </div>
 
-<!-- ════════════════════════════════ VISITAS ════ -->
-<section id="visitas" class="section">
-  <div class="container">
-    <div style="margin-bottom:var(--s5)">
-      <p class="section-label gs-fade">Convidados</p>
-      <h2 class="section-title gs-fade" style="margin-bottom:var(--s2)">Informação para Visitas</h2>
-      <p class="section-desc gs-fade">Para membros não adventistas e convidados — leia com atenção</p>
-    </div>
+		  <div class="hero-actions" id="heroActions">
+			<a href="#cronograma" class="btn btn-primary">Ver Cronograma</a>
+			<a href="#rota" class="btn btn-ghost">Ver Rota</a>
+			<a href="#transmissao" class="btn btn-gold">📺 Transmissão</a>
+		  </div>
 
-    <div class="visitas-layout">
-      <div>
-        <ul class="rules-list">
-          <!-- EDITAR: substitui as regras pelas reais -->
-          <li class="rule-item gs-fade">
-            <span class="rule-num">01</span>
-            <span class="rule-text">Vista-se de forma <strong>adequada e respeitosa</strong>. Evite roupas curtas ou inapropriadas para um evento religioso.</span>
-          </li>
-          <li class="rule-item gs-fade">
-            <span class="rule-num">02</span>
-            <span class="rule-text">Mantenha <strong>silêncio e ordem</strong> durante as marchas. Não interrompa as formações.</span>
-          </li>
-          <li class="rule-item gs-fade">
-            <span class="rule-num">03</span>
-            <span class="rule-text">Permaneça nas <strong>zonas designadas para convidados</strong>. Siga sempre as indicações dos responsáveis.</span>
-          </li>
-          <li class="rule-item gs-fade">
-            <span class="rule-num">04</span>
-            <span class="rule-text">Evite o consumo de <strong>bebidas alcoólicas ou tabaco</strong> durante o evento.</span>
-          </li>
-          <li class="rule-item gs-fade">
-            <span class="rule-num">05</span>
-            <span class="rule-text">Em caso de dúvida, <strong>dirija-se imediatamente</strong> aos responsáveis identificados ao lado.</span>
-          </li>
-          <!-- ADICIONA MAIS REGRAS AQUI -->
-        </ul>
-      </div>
+		  <div class="hero-countdown" id="heroCountdown">
+			<div class="hcd-item">
+			  <span class="hcd-num" id="hcd-d">--</span
+			  ><span class="hcd-lbl">Dias</span>
+			</div>
+			<div class="hcd-sep">:</div>
+			<div class="hcd-item">
+			  <span class="hcd-num" id="hcd-h">--</span
+			  ><span class="hcd-lbl">Horas</span>
+			</div>
+			<div class="hcd-sep">:</div>
+			<div class="hcd-item">
+			  <span class="hcd-num" id="hcd-m">--</span
+			  ><span class="hcd-lbl">Min</span>
+			</div>
+			<div class="hcd-sep">:</div>
+			<div class="hcd-item">
+			  <span class="hcd-num" id="hcd-s">--</span
+			  ><span class="hcd-lbl">Seg</span>
+			</div>
+		  </div>
+		</div>
+	  </div>
 
-      <div class="contacts-card gs-fade">
-        <h3>A Quem se Dirigir</h3>
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:var(--s3);line-height:1.6">
-          Para qualquer questão, dúvida ou emergência durante o evento:
-        </p>
+	  <div class="scroll-hint" id="scrollHint">
+		<svg
+		  width="18"
+		  height="18"
+		  viewBox="0 0 24 24"
+		  fill="none"
+		  stroke="currentColor"
+		  stroke-width="1.5"
+		>
+		  <path d="M12 5v14M5 12l7 7 7-7" />
+		</svg>
+		Scroll
+	  </div>
+	</section>
 
-        <!--
-          ═══════════════════════════════════════════
-          COMO ADICIONAR RESPONSÁVEIS:
-          Copia este .contact-card e:
-          - Troca src="assets/img_temporary.jpg" pela foto real
-          - Preenche [Nome], [Cargo] e número de telefone
-          ═══════════════════════════════════════════
-        -->
-        <div class="contact-card">
-          <div class="contact-avatar">
-            <img src="assets/img_temporary.jpg" alt="Responsável"
-              onerror="this.style.display='none'"/>
-          </div>
-          <div class="contact-info">
-            <div class="c-role">[Cargo — ex: Responsável pelo Acolhimento]</div>
-            <div class="c-name">[Nome do Responsável]</div>
-            <a class="c-phone" href="tel:+244XXXXXXXXX">📱 +244 XXX XXX XXX</a>
-          </div>
-        </div>
+	<!-- ════════════════════════════════ COUNTDOWN ════ -->
+	<div id="contagem" class="section-sm">
+	  <div class="container">
+		<p
+		  style="
+			text-align: center;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 0.22em;
+			text-transform: uppercase;
+			color: var(--red);
+			margin-bottom: var(--s4);
+		  "
+		>
+		  Contagem para o Desfile · 28 Junho 2026
+		</p>
+		<div class="cd-strip">
+		  <!-- Dias -->
+		  <div class="cd-block gs-fade">
+			<div class="cd-ring">
+			  <svg width="96" height="96">
+				<circle
+				  class="track"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				/>
+				<circle
+				  class="progress"
+				  id="prog-d"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				  stroke-dashoffset="264"
+				/>
+			  </svg>
+			  <div class="cd-inner">
+				<span class="cd-num" id="cd-d">--</span
+				><span class="cd-unit">dias</span>
+			  </div>
+			</div>
+		  </div>
+		  <div class="cd-sep-v gs-fade"></div>
 
-        <div class="contact-card">
-          <div class="contact-avatar">
-            <img src="assets/img_temporary.jpg" alt="Responsável"
-              onerror="this.style.display='none'"/>
-          </div>
-          <div class="contact-info">
-            <div class="c-role">[Cargo]</div>
-            <div class="c-name">[Nome do Responsável]</div>
-            <a class="c-phone" href="tel:+244XXXXXXXXX">📱 +244 XXX XXX XXX</a>
-          </div>
-        </div>
-        <!-- ADICIONA MAIS RESPONSÁVEIS AQUI -->
-      </div>
-    </div>
-  </div>
-</section>
+		  <!-- Horas -->
+		  <div class="cd-block gs-fade">
+			<div class="cd-ring">
+			  <svg width="96" height="96">
+				<circle
+				  class="track"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				/>
+				<circle
+				  class="progress"
+				  id="prog-h"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				  stroke-dashoffset="264"
+				/>
+			  </svg>
+			  <div class="cd-inner">
+				<span class="cd-num" id="cd-h">--</span
+				><span class="cd-unit">horas</span>
+			  </div>
+			</div>
+		  </div>
+		  <div class="cd-sep-v gs-fade"></div>
 
+		  <!-- Minutos -->
+		  <div class="cd-block gs-fade">
+			<div class="cd-ring">
+			  <svg width="96" height="96">
+				<circle
+				  class="track"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				/>
+				<circle
+				  class="progress"
+				  id="prog-m"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				  stroke-dashoffset="264"
+				/>
+			  </svg>
+			  <div class="cd-inner">
+				<span class="cd-num" id="cd-m">--</span
+				><span class="cd-unit">min</span>
+			  </div>
+			</div>
+		  </div>
+		  <div class="cd-sep-v gs-fade"></div>
 
-<!-- ════════════════════════════════ WHATSAPP SHARE ════ -->
-<section id="partilha" class="section">
-  <div class="container">
-    <div style="margin-bottom:var(--s5)">
-      <p class="section-label gs-fade" style="color:#25D366">Partilha</p>
-      <h2 class="section-title gs-fade" style="margin-bottom:var(--s2)">Partilha no WhatsApp</h2>
-      <p class="section-desc gs-fade">Convida os teus contactos para o desfile — personaliza a mensagem</p>
-    </div>
+		  <!-- Segundos -->
+		  <div class="cd-block gs-fade">
+			<div class="cd-ring">
+			  <svg width="96" height="96">
+				<circle
+				  class="track"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				/>
+				<circle
+				  class="progress"
+				  id="prog-s"
+				  cx="48"
+				  cy="48"
+				  r="42"
+				  stroke-dasharray="264"
+				  stroke-dashoffset="264"
+				/>
+			  </svg>
+			  <div class="cd-inner">
+				<span class="cd-num" id="cd-s">--</span
+				><span class="cd-unit">seg</span>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
 
-    <div class="share-layout">
-      <!-- Preview da mensagem -->
-      <div class="share-preview">
-        <h3>Pré-visualização</h3>
-        <div class="msg-bubble" id="msgPreview">Carregando...</div>
-        <div class="share-btns">
-          <a id="waStatusLink" href="#" target="_blank" class="wa-btn wa-status">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-            Partilhar no Status
-          </a>
-          <a id="waGroupLink" href="#" target="_blank" class="wa-btn wa-group">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            Enviar para Grupos
-          </a>
-        </div>
-      </div>
+	<!-- ════════════════════════════════ SOBRE ════ -->
+	<section id="sobre" class="section">
+	  <div class="container">
+		<div class="sobre-layout">
+		  <div>
+			<p class="section-label gs-fade">Quem Somos</p>
+			<h2 class="section-title gs-fade" style="margin-bottom: var(--s3)">
+			  Palanca Negra
+			</h2>
+			<div class="section-desc gs-fade">
+			  <!-- EDITAR: texto sobre o clube -->
+			  <p>
+				O Clube de Desbravadores Palanca Negra é uma organização juvenil
+				vinculada à Igreja Adventista do Sétimo Dia, dedicada ao
+				desenvolvimento integral dos jovens nos pilares físico, mental,
+				social e espiritual.
+			  </p>
+			  <p style="margin-top: var(--s2)">
+				Fundado em
+				<strong style="color: var(--text-primary)">1993</strong>, o
+				clube é reconhecido pelo seu espírito de disciplina, serviço e
+				fé.
+			  </p>
+			  <!-- FIM EDITAR -->
+			</div>
+			<div class="info-grid gs-fade" style="margin-top: var(--s4)">
+			  <div class="info-tile">
+				<div class="i-label">Igreja base</div>
+				<div class="i-value">
+				  Igreja Adventista do Sétimo Dia - Central Luanda
+				</div>
+			  </div>
+			  <div class="info-tile">
+				<div class="i-label">Membros activos</div>
+				<div class="i-value">388</div>
+			  </div>
+			  <div class="info-tile">
+				<div class="i-label">Classe</div>
+				<div class="i-value">
+				  Classes Regulares (Amigo a Guia) e Avançadas
+				</div>
+			  </div>
+			  <div class="info-tile">
+				<div class="i-label">Fundação</div>
+				<div class="i-value">8 de Setembro de 1993</div>
+			  </div>
+			</div>
+		  </div>
 
-      <!-- Personalização -->
-      <div class="share-customize">
-        <h3>Personaliza a Mensagem</h3>
+		  <div class="sobre-card gs-fade">
+			<h3>Sobre o Desfile</h3>
+			<!-- EDITAR -->
+			<p>
+			  O Desfile de Ordem Unida é uma das expressões mais emblemáticas do
+			  movimento Desbravador — disciplina colectiva, unidade e testemunho
+			  público da fé.
+			</p>
+			<p>
+			  Marcha coordenada, uniformes impecáveis e comportamento exemplar
+			  pelas ruas de Luanda, proclamando a mensagem do tema anual.
+			</p>
+			<!-- FIM EDITAR -->
+			<div class="highlight-box">
+			  "Quebrando Silêncio, Uma Verdade Desconhecida" — o clube marcha
+			  para proclamar uma mensagem de coragem e revelação.
+			</div>
+			<div
+			  style="
+				margin-top: var(--s3);
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			  "
+			>
+			  <div class="info-tile">
+				<div class="i-label">Data</div>
+				<div class="i-value">28 de Junho de 2026</div>
+			  </div>
+			  <div class="info-tile">
+				<div class="i-label">Hora de partida</div>
+				<div class="i-value">09:00</div>
+			  </div>
+			  <div class="info-tile">
+				<div class="i-label">Distância estimada</div>
+				<div class="i-value">≈ 3.6 km</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</section>
 
-        <div class="form-group">
-          <label>O teu nome</label>
-          <input type="text" id="shareNome" placeholder="Ex: João Silva" value=""/>
-        </div>
+	<!-- ════════════════════════════════ CRONOGRAMA ════ -->
+	<section id="cronograma" class="section">
+	  <div class="container">
+		<div style="text-align: center; margin-bottom: var(--s6)">
+		  <p class="section-label gs-fade" style="justify-content: center">
+			Programação
+		  </p>
+		  <h2 class="section-title gs-fade">Cronograma · 28 Jun 2026</h2>
+		</div>
 
-        <div class="form-group">
-          <label>Link do site</label>
-          <input type="text" id="shareLink" placeholder="https://palanca-negra.ao" value="https://palanca-negra.ao"/>
-        </div>
+		<div class="timeline-wrap">
+		  <div class="timeline-rail"></div>
 
-        <div class="form-group">
-          <label>Mensagem extra (opcional)</label>
-          <textarea id="shareExtra" placeholder="Adiciona uma mensagem personalizada..."></textarea>
-        </div>
+		  <!--
+		═══════════════════════════════════════════
+		COMO ADICIONAR EVENTOS AO CRONOGRAMA:
+		Copia o bloco .tl-item abaixo e preenche:
+		- .tl-time: hora e AM/PM
+		- .tl-tag: categoria (Concentração / Desfile / Encerramento...)
+		  Para evento principal, adiciona class="tag-gold"
+		- h4: título do evento
+		- p: descrição
+		Para ponto de destaque (dot dourado), usa class="tl-dot gold-dot"
+		═══════════════════════════════════════════
+	  -->
 
-        <div class="form-group">
-          <label>Tom da mensagem</label>
-          <select id="shareTom">
-            <option value="formal">Formal</option>
-            <option value="amigavel" selected>Amigável</option>
-            <option value="entusiasmado">Entusiasmado</option>
-          </select>
-        </div>
+		  <div class="tl-item gs-fade">
+			<div class="tl-time">08:00<small>AM</small></div>
+			<div class="tl-dot"></div>
+			<div class="tl-body">
+			  <span class="tl-tag">Concentração</span>
+			  <h4>Concentração Geral</h4>
+			  <p>
+				Concentração de todos os membros na IASD Central de Luanda.
+				Verificação de uniformes e equipamentos.
+			  </p>
+			</div>
+		  </div>
 
-        <button class="btn btn-primary" onclick="updateShareMsg()" style="width:100%;justify-content:center">
-          Actualizar Pré-visualização
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
+		  <div class="tl-item gs-fade">
+			<div class="tl-time">08:30<small>AM</small></div>
+			<div class="tl-dot"></div>
+			<div class="tl-body">
+			  <span class="tl-tag">Formação</span>
+			  <h4>Instrução de Formação</h4>
+			  <p>
+				Últimas instruções, formação dos pelotões e ensaio das marchas.
+			  </p>
+			</div>
+		  </div>
 
+		  <div class="tl-item gs-fade">
+			<div class="tl-time">09:00<small>AM</small></div>
+			<div class="tl-dot gold-dot"></div>
+			<div class="tl-body">
+			  <span class="tl-tag tag-gold">Início do Desfile</span>
+			  <h4>Partida Oficial</h4>
+			  <p>
+				Início do Desfile de Ordem Unida — saída da IASD Central de
+				Luanda pela Rua Rey Katyavala.
+			  </p>
+			</div>
+		  </div>
 
-<!-- ════════════════════════════════ TRANSMISSÃO ════ -->
-<section id="transmissao" class="section">
-  <div class="container">
-    <div style="margin-bottom:var(--s5)">
-      <p class="section-label gs-fade" style="color:var(--red)">Em Directo</p>
-      <h2 class="section-title gs-fade" style="margin-bottom:var(--s2)">Transmissão ao Vivo</h2>
-      <p class="section-desc gs-fade">Segue o desfile em directo no dia 28 de Junho de 2026</p>
-    </div>
+		  <!--div class="tl-item gs-fade">
+			<div class="tl-time">[09:30]<small>AM</small></div>
+			<div class="tl-dot"></div>
+			<div class="tl-body">
+			  <span class="tl-tag">Rota</span>
+			  <h4>[Ponto intermédio do percurso]</h4>
+			  <p>
+				Passagem por [local / rua de referência]. [Descrição ou nota
+				especial deste ponto.]
+			  </p>
+			</div>
+		  </div>
 
-    <!-- Bloqueado antes do evento -->
-    <div class="live-locked gs-fade" id="liveLocked">
-      <div class="live-locked-icon">📺</div>
-      <h3>A transmissão ainda não começou</h3>
-      <p>A transmissão ao vivo ficará disponível no dia 28 de Junho de 2026. Activa as notificações nos nossos canais para ser avisado.</p>
+		  <div class="tl-item gs-fade">
+			<div class="tl-time">[HH:MM]<small>AM</small></div>
+			<div class="tl-dot gold-dot"></div>
+			<div class="tl-body">
+			  <span class="tl-tag tag-gold">Chegada</span>
+			  <h4>Chegada ao Destino Final</h4>
+			  <p>Regresso à Rua Rey Katyavala — conclusão do percurso.</p>
+			</div>
+		  </div>
 
-      <!-- Mini timer até ao dia -->
-      <div class="live-timer">
-        <div class="lt-item"><div class="lt-num" id="lt-d">--</div><div class="lt-lbl">Dias</div></div>
-        <div class="lt-sep">:</div>
-        <div class="lt-item"><div class="lt-num" id="lt-h">--</div><div class="lt-lbl">Horas</div></div>
-        <div class="lt-sep">:</div>
-        <div class="lt-item"><div class="lt-num" id="lt-m">--</div><div class="lt-lbl">Min</div></div>
-      </div>
+		  <div class="tl-item gs-fade">
+			<div class="tl-time">[HH:MM]<small>AM</small></div>
+			<div class="tl-dot"></div>
+			<div class="tl-body">
+			  <span class="tl-tag">Encerramento</span>
+			  <h4>Cerimónia de Encerramento</h4>
+			  <p>
+				[Descrição da cerimónia de encerramento, premiação, discurso,
+				etc.]
+			  </p>
+			</div>
+		  </div-->
 
-      <!-- Botões para activar notificações nos canais -->
-      <div class="live-platforms-row" style="margin-top:var(--s3)">
-        <a href="https://youtube.com/desbravadorespalancanegra307" target="_blank" class="live-plat-btn">
-          <!-- ÍCONE YOUTUBE: troca por <img src="assets/yt-icon.png"> quando tiveres -->
-          <div class="lp-icon lp-icon-youtube" style="width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center">▶</div>
-          Subscreve no YouTube
-        </a>
-        <a href="https://instagram.com/10bravadores_palancanegra" target="_blank" class="live-plat-btn">
-          <div class="lp-icon lp-icon-instagram" style="width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px">📸</div>
-          Segue no Instagram
-        </a>
-        <a href="https://facebook.com" target="_blank" class="live-plat-btn">
-          <div class="lp-icon lp-icon-facebook" style="width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:700">f</div>
-          Segue no Facebook
-        </a>
-      </div>
-    </div>
+		  <!-- ADICIONA MAIS EVENTOS AQUI -->
+		</div>
+	  </div>
+	</section>
 
-    <!-- Activo no dia do evento — ficará visível automaticamente -->
-    <div class="live-active gs-fade" id="liveActive">
-      <div style="display:flex;align-items:center;gap:var(--s2);margin-bottom:var(--s3)">
-        <span class="badge badge-live">● AO VIVO</span>
-        <span style="font-size:13px;color:var(--text-secondary)">Transmissão em directo · 28 Jun 2026</span>
-      </div>
+	<!-- ════════════════════════════════ ROTA ════ -->
+	<section id="rota" class="section">
+	  <div class="container">
+		<div style="margin-bottom: var(--s4)">
+		  <p class="section-label gs-fade">Percurso</p>
+		  <h2 class="section-title gs-fade" style="margin-bottom: var(--s2)">
+			Rota do Desfile
+		  </h2>
+		  <p class="section-desc gs-fade">
+			Percurso pelas ruas de Luanda · 28 de Junho de 2026
+		  </p>
+		</div>
 
-      <!-- Embed principal: YouTube (preenche com o ID do vídeo ao vivo) -->
-      <div class="live-main-embed">
-        <!--
-          EDITAR NO DIA: substitui VIDEO_ID_YOUTUBE pelo ID real do livestream
-          Ex: https://www.youtube.com/watch?v=abc123 → VIDEO_ID = abc123
-        -->
-        <iframe
-          src="https://www.youtube.com/embed/VIDEO_ID_YOUTUBE?autoplay=1&rel=0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
+		<div class="rota-layout">
+		  <div id="map" class="gs-fade"></div>
 
-      <!-- Botões para outras plataformas -->
-      <div class="live-platforms-row">
-        <a href="https://youtube.com/desbravadorespalancanegra307" target="_blank" class="live-plat-btn">
-          <div class="lp-icon lp-icon-youtube" style="width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center">▶</div>
-          Abrir no YouTube
-        </a>
-        <a href="https://instagram.com/10bravadores_palancanegra" target="_blank" class="live-plat-btn">
-          <div class="lp-icon lp-icon-instagram" style="width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px">📸</div>
-          Abrir no Instagram
-        </a>
-        <a href="https://facebook.com" target="_blank" class="live-plat-btn">
-          <div class="lp-icon lp-icon-facebook" style="width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:700">f</div>
-          Abrir no Facebook
-        </a>
-      </div>
+		  <div class="rota-sidebar gs-fade">
+			<div class="route-step">
+			  <div class="step-num">1</div>
+			  <div>
+				<div class="step-name">IASD Central de Luanda</div>
+				<div class="step-note">
+				  Rua Rey Katyavala · Partida / Chegada
+				</div>
+			  </div>
+			</div>
+			<div class="route-step">
+			  <div class="step-num">2</div>
+			  <div>
+				<div class="step-name">
+				  Rua Rey Katyavala → Avenida de Portugal
+				</div>
+			  </div>
+			</div>
+			<div class="route-step">
+			  <div class="step-num">3</div>
+			  <div>
+				<div class="step-name">
+				  Avenida de Portugal → Rua Amílcar Cabral
+				</div>
+			  </div>
+			</div>
+			<div class="route-step">
+			  <div class="step-num">4</div>
+			  <div>
+				<div class="step-name">Rua Amílcar Cabral → Rua da Missão</div>
+			  </div>
+			</div>
+			<div class="route-step">
+			  <div class="step-num">5</div>
+			  <div>
+				<div class="step-name">
+				  Rua da Missão → Avenida Comandante Valódia
+				</div>
+			  </div>
+			</div>
+			<div class="route-step">
+			  <div class="step-num">6</div>
+			  <div>
+				<div class="step-name">
+				  Avenida Comandante Valódia → Alameda Ho Chi Minh
+				</div>
+			  </div>
+			</div>
+			<div class="route-step">
+			  <div class="step-num">7</div>
+			  <div>
+				<div class="step-name">
+				  Alameda Ho Chi Minh → Rua Rey Katyavala
+				</div>
+			  </div>
+			</div>
+			<div class="route-step">
+			  <div class="step-num">8</div>
+			  <div>
+				<div class="step-name">Chegada à IASD Central de Luanda</div>
+				<div class="step-note">Fim do percurso</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
 
-      <!--
-        NOTA SOBRE RTMP/TRANSMISSÃO INTEGRADA:
-        Para transmissão RTMP directamente no site (sem depender de YouTube/Instagram),
-        podes usar o servidor de streaming Nginx-RTMP + Video.js HLS player.
-        Precisa de um servidor próprio. O bloco embed abaixo serve para isso:
+		<div class="rota-stats gs-fade">
+		  <div class="rota-stat">
+			<span class="rs-val">≈3.6</span>
+			<div class="rs-lbl">Km totais</div>
+		  </div>
+		  <div class="rota-stat">
+			<span class="rs-val">7</span>
+			<div class="rs-lbl">Pontos de rota</div>
+		  </div>
+		  <div class="rota-stat">
+			<span class="rs-val">≈45</span>
+			<div class="rs-lbl">Min estimados</div>
+		  </div>
+		</div>
+	  </div>
+	</section>
 
-        <video id="liveRtmpPlayer" class="video-js" controls autoplay muted>
-          <source src="https://SEU_SERVIDOR/hls/live.m3u8" type="application/x-mpegURL"/>
-        </video>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video-js.min.css" rel="stylesheet"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video.min.js"></script>
+	<!-- ════════════════════════════════ COMISSÕES ════ -->
+	<section id="comissoes" class="section">
+	  <div class="container">
+		<div style="margin-bottom: var(--s4)">
+		  <p class="section-label gs-fade">Equipa</p>
+		  <h2 class="section-title gs-fade" style="margin-bottom: var(--s2)">
+			Comissões & Departamentos
+		  </h2>
+		</div>
 
-        Para eventos pequenos sem servidor, YouTube Live (gratuito) é a melhor opção.
-      -->
-    </div>
-  </div>
-</section>
+		<!--
+	  ═══════════════════════════════════════════
+	  COMO ADICIONAR UM DEPARTAMENTO:
+	  1. Adiciona um botão .dept-btn com onclick="switchDept(this,'ID')"
+	  2. Adiciona um .dept-panel com o id="dept-ID"
+	  ═══════════════════════════════════════════
+	-->
+		<div class="dept-nav gs-fade">
+		  <button class="dept-btn active" onclick="switchDept(this, 'direcao')">
+			Direcção
+		  </button>
+		  <button class="dept-btn" onclick="switchDept(this, 'ordem-unida')">
+			Ordem Unida
+		  </button>
+		  <button class="dept-btn" onclick="switchDept(this, 'social')">
+			Social
+		  </button>
+		  <button class="dept-btn" onclick="switchDept(this, 'musica')">
+			Música
+		  </button>
+		  <button class="dept-btn" onclick="switchDept(this, 'instrutores')">
+			Instrutores
+		  </button>
+		  <!-- ADICIONA MAIS DEPARTAMENTOS AQUI -->
+		</div>
 
+		<!-- ══ DIRECÇÃO ══ -->
+		<div class="dept-panel active" id="dept-direcao">
+		  <div class="dept-header">
+			<h3>Direcção do Clube</h3>
+		  </div>
+		  <div class="members-grid">
+			<!--
+		  ═══════════════════════════════════════════
+		  COMO ADICIONAR UM MEMBRO:
+		  Copia este bloco .member-card e:
+		  - Troca src="assets/img_temporary.jpg" pela foto real
+		  - Preenche [Nome Completo] e [Cargo]
+		  ═══════════════════════════════════════════
+		-->
+			<div class="member-card">
+			  <div class="member-photo">
+				<img
+				  src="assets/pedro_reinaldo.jpg"
+				  alt="Pedro Reinaldo"
+				  onerror="
+					this.parentElement.classList.add('member-photo-ph-mode')
+				  "
+				/>
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Pedro Reinaldo</div>
+				<div class="m-role">Director do Clube</div>
+			  </div>
+			</div>
 
-<!-- ════════════════════════════════ CONTACTO ════ -->
-<section id="contacto" class="section">
-  <div class="container">
-    <div style="margin-bottom:var(--s5)">
-      <p class="section-label gs-fade">Fala Connosco</p>
-      <h2 class="section-title gs-fade" style="margin-bottom:var(--s2)">Contacto</h2>
-      <p class="section-desc gs-fade">Redes sociais e responsáveis do Departamento Social do Desfile</p>
-    </div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/denis_sokis.png" alt="Denis Sokis" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Denis Sokis</div>
+				<div class="m-role">Director Assiciado do Clube</div>
+			  </div>
+			</div>
 
-    <div class="contacto-layout">
-      <!-- Redes sociais -->
-      <div>
-        <p style="font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--s3)">Redes Sociais</p>
-        <div class="social-grid gs-fade">
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/winona_mateus.png" alt="Winona Mateus" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Winona Mateus</div>
+				<div class="m-role">Directora Assiciado do Clube</div>
+			  </div>
+			</div>
 
-          <!--
-            ═══════════════════════════════════════════
-            ÍCONES DAS REDES SOCIAIS:
-            Substitui o .si-letter por <img src="assets/icon-instagram.png" style="width:100%;height:100%;object-fit:cover">
-            quando tiveres os ícones/logos das plataformas
-            ═══════════════════════════════════════════
-          -->
+			<!--div class="member-card">
+		  <div class="member-photo">
+			<img src="assets/img_temporary.jpg" alt="Membro"/>
+		  </div>
+		  <div class="member-info">
+			<div class="m-name">[Nome Completo]</div>
+			<div class="m-role">Tesoureiro(a)</div>
+		  </div>
+		</div-->
+			<!-- ADICIONA MAIS MEMBROS AQUI -->
+		  </div>
+		</div>
 
-          <a href="https://instagram.com/10bravadores_palancanegra" target="_blank" class="social-card">
-            <div class="social-icon si-instagram">
-              <!-- TROCAR: <img src="assets/icon-instagram.png" alt="Instagram"> -->
-              <img src="assets/instagram_logo.jpg" style="width:100%;height:100%;object-fit:cover">
-            </div>
-            <div class="social-info">
-              <div class="sc-name">Instagram</div>
-              <div class="sc-handle">@10bravadores_palancanegra</div>
-            </div>
-          </a>
+		<!-- ══ ORDEM UNIDA ══ -->
+		<div class="dept-panel" id="dept-ordem-unida">
+		  <div class="dept-header"><h3>Ordem Unida</h3></div>
+		  <div class="members-grid">
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/pedro_fula.jpg" alt="Pedro Fula" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Pedro Fula</div>
+				<div class="m-role">Responsável pela Ordem Unida</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/img_temporary.jpg" alt="Membro" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Maura Rodrigues</div>
+				<div class="m-role">Responsável pela Ordem Unida</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/img_temporary.jpg" alt="Membro" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Ricardo dos Santos</div>
+				<div class="m-role">Responsável pela Ordem Unida</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/img_temporary.jpg" alt="Membro" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Aumércio dos Santos</div>
+				<div class="m-role">Responsável pela Ordem Unida</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/img_temporary.jpg" alt="Membro" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Merciano Coutinho</div>
+				<div class="m-role">Responsável pela Ordem Unida</div>
+			  </div>
+			</div>
+			<!-- ADICIONA MAIS MEMBROS AQUI -->
+		  </div>
+		</div>
 
-          <a href="https://youtube.com/desbravadorespalancanegra307" target="_blank" class="social-card">
-            <div class="social-icon si-youtube">
-              <!-- TROCAR: <img src="assets/icon-youtube.png" alt="YouTube"> -->
-              <img src="assets/youtube_logo.png" style="width:100%;height:100%;object-fit:cover">
-            </div>
-            <div class="social-info">
-              <div class="sc-name">YouTube</div>
-              <div class="sc-handle">desbravadorespalancanegra307</div>
-            </div>
-          </a>
+		<!-- ══ SOCIAL ══ -->
+		<div class="dept-panel" id="dept-social">
+		  <div class="dept-header"><h3>Departamento Social</h3></div>
+		  <div class="members-grid">
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/img_temporary.jpg" alt="Membro" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Diana Longuenda</div>
+				<div class="m-role">Responsável Social</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/img_temporary.jpg" alt="Membro" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Josane Chicumba</div>
+				<div class="m-role">Comunicação Digital</div>
+			  </div>
+			</div>
+			<!-- ADICIONA MAIS MEMBROS AQUI -->
+		  </div>
+		</div>
 
-          <a href="https://wa.me/2449XXXXXXXX" target="_blank" class="social-card">
-            <div class="social-icon si-whatsapp">
-              <!-- TROCAR: <img src="assets/icon-whatsapp.png" alt="WhatsApp"> -->
-              <img src="assets/whatsapp_logo.jpg" style="width:100%;height:100%;object-fit:cover">
-            </div>
-            <div class="social-info">
-              <div class="sc-name">WhatsApp</div>
-              <div class="sc-handle">+244 9XX XXX XXX</div>
-            </div>
-          </a>
+		<!-- ══ MÚSICA ══ -->
+		<div class="dept-panel" id="dept-musica">
+		  <div class="dept-header"><h3>Departamento de Música</h3></div>
+		  <div class="members-grid">
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/lisandra_mazanga.jpg" alt="Lisandra Mazanga" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Lisandra Mazanga</div>
+				<div class="m-role">Maestro / Dir. Musical</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/delcio_samba.jpg" alt="Delcio Samba" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Délcio Samba</div>
+				<div class="m-role">Maestro / Dir. Musical</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/delcio_samba.jpg" alt="Delcio Samba" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Afonso Calado</div>
+				<div class="m-role">Maestro / Dir. Musical</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/delcio_samba.jpg" alt="Delcio Samba" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Bruno Mainsel</div>
+				<div class="m-role">Maestro / Dir. Musical</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/delcio_samba.jpg" alt="Delcio Samba" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Euclides Victor</div>
+				<div class="m-role">Maestro / Dir. Musical</div>
+			  </div>
+			</div>
+			<div class="member-card">
+			  <div class="member-photo">
+				<img src="assets/delcio_samba.jpg" alt="Delcio Samba" />
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Regina Esgueira</div>
+				<div class="m-role">Maestro / Dir. Musical</div>
+			  </div>
+			</div>
+			<!-- ADICIONA MAIS MEMBROS AQUI -->
+		  </div>
+		</div>
 
-          <a href="https://facebook.com" target="_blank" class="social-card">
-            <div class="social-icon si-facebook">
-              <!-- TROCAR: <img src="assets/icon-facebook.png" alt="Facebook"> -->
-              <img src="assets/facebook_logo.png" style="width:100%;height:100%;object-fit:cover">
-            </div>
-            <div class="social-info">
-              <div class="sc-name">Facebook</div>
-              <div class="sc-handle">Clube de Desbravadores Palanca Negra</div>
-            </div>
-          </a>
+		<!-- ══ INSTRUTORES ══ -->
+		<div class="dept-panel" id="dept-instrutores">
+		  <div class="dept-header"><h3>Instrutores</h3></div>
+		  <div class="members-grid">
+			<div class="member-card">
+			  <div class="member-photo">
+				<img
+				  src="assets/adriano_cussumala.jpg"
+				  alt="Adriano Cussumala"
+				/>
+			  </div>
+			  <div class="member-info">
+				<div class="m-name">Adriano Cussumala</div>
+				<div class="m-role">Responsável pelos Instrutores</div>
+			  </div>
+			</div>
+			<div class="member-card">
+				<div class="member-photo">
+				  <img
+					src="assets/adriano_cussumala.jpg"
+					alt="Adriano Cussumala"
+				  />
+				</div>
+				<div class="member-info">
+				  <div class="m-name">Júlia Ana</div>
+				  <div class="m-role">Responsável pelos Instrutores</div>
+				</div>
+			  </div>
+			  <div class="member-card">
+				<div class="member-photo">
+				  <img
+					src="assets/adriano_cussumala.jpg"
+					alt="Adriano Cussumala"
+				  />
+				</div>
+				<div class="member-info">
+				  <div class="m-name">Lowel Faria</div>
+				  <div class="m-role">Responsável pelos Instrutores</div>
+				</div>
+			  </div>
+			  <div class="member-card">
+				<div class="member-photo">
+				  <img
+					src="assets/adriano_cussumala.jpg"
+					alt="Adriano Cussumala"
+				  />
+				</div>
+				<div class="member-info">
+				  <div class="m-name">Zenaida Manuel</div>
+				  <div class="m-role">Responsável pelos Instrutores</div>
+				</div>
+			  </div>
+			  <div class="member-card">
+				<div class="member-photo">
+				  <img
+					src="assets/adriano_cussumala.jpg"
+					alt="Adriano Cussumala"
+				  />
+				</div>
+				<div class="member-info">
+				  <div class="m-name">Generosa Miza</div>
+				  <div class="m-role">Responsável pelos Instrutores</div>
+				</div>
+			  </div>
+			<!-- ADICIONA MAIS MEMBROS AQUI -->
+		  </div>
+		</div>
+	  </div>
+	</section>
 
-          <!-- ADICIONA MAIS REDES AQUI -->
-        </div>
-      </div>
+	<!-- ════════════════════════════════ VISITAS ════ -->
+	<section id="visitas" class="section">
+	  <div class="container">
+		<div style="margin-bottom: var(--s5)">
+		  <p class="section-label gs-fade">Convidados</p>
+		  <h2 class="section-title gs-fade" style="margin-bottom: var(--s2)">
+			Informação para Visitas
+		  </h2>
+		  <p class="section-desc gs-fade">
+			Para membros não adventistas e convidados — leia com atenção
+		  </p>
+		</div>
 
-      <!-- Responsáveis dep. social -->
-      <div>
-        <p style="font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--s3)">Dep. Social do Desfile</p>
-        <div class="resp-cards-wrap gs-fade">
+		<div class="visitas-layout">
+		  <div>
+			<ul class="rules-list">
+			  <!-- EDITAR: substitui as regras pelas reais -->
+			  <li class="rule-item gs-fade">
+				<span class="rule-num">01</span>
+				<span class="rule-text"
+				  >Vista-se de forma <strong>adequada e respeitosa</strong>.
+				  Evite roupas curtas ou inapropriadas para um evento
+				  religioso.</span
+				>
+			  </li>
+			  <li class="rule-item gs-fade">
+				<span class="rule-num">02</span>
+				<span class="rule-text"
+				  >Mantenha <strong>silêncio e ordem</strong> durante as
+				  marchas. Não interrompa as formações.</span
+				>
+			  </li>
+			  <li class="rule-item gs-fade">
+				<span class="rule-num">03</span>
+				<span class="rule-text"
+				  >Permaneça nas
+				  <strong>zonas designadas para convidados</strong>. Siga sempre
+				  as indicações dos responsáveis.</span
+				>
+			  </li>
+			  <li class="rule-item gs-fade">
+				<span class="rule-num">04</span>
+				<span class="rule-text"
+				  >Evite o consumo de
+				  <strong>bebidas alcoólicas ou tabaco</strong> durante o
+				  evento.</span
+				>
+			  </li>
+			  <li class="rule-item gs-fade">
+				<span class="rule-num">05</span>
+				<span class="rule-text"
+				  >Em caso de dúvida,
+				  <strong>dirija-se imediatamente</strong> aos responsáveis
+				  identificados ao lado.</span
+				>
+			  </li>
+			  <!-- ADICIONA MAIS REGRAS AQUI -->
+			</ul>
+		  </div>
 
-          <!--
-            COMO ADICIONAR RESPONSÁVEL DO DEP. SOCIAL:
-            Copia este .resp-card e preenche.
-          -->
-          <div class="resp-card">
-            <div class="resp-avatar">
-              <img src="assets/img_temporary.jpg" alt="Responsável" onerror="this.style.display='none'"/>
-            </div>
-            <div class="resp-info">
-              <div class="ri-role">[Cargo no Dep. Social]</div>
-              <div class="ri-name">[Nome Completo]</div>
-              <a class="ri-phone" href="tel:+244XXXXXXXXX">+244 XXX XXX XXX</a>
-            </div>
-          </div>
+		  <div class="contacts-card gs-fade">
+			<h3>A Quem se Dirigir</h3>
+			<p
+			  style="
+				font-size: 13px;
+				color: var(--text-muted);
+				margin-bottom: var(--s3);
+				line-height: 1.6;
+			  "
+			>
+			  Para qualquer questão, dúvida ou emergência durante o evento:
+			</p>
 
-          <div class="resp-card">
-            <div class="resp-avatar">
-              <img src="assets/img_temporary.jpg" alt="Responsável" onerror="this.style.display='none'"/>
-            </div>
-            <div class="resp-info">
-              <div class="ri-role">[Cargo no Dep. Social]</div>
-              <div class="ri-name">[Nome Completo]</div>
-              <a class="ri-phone" href="tel:+244XXXXXXXXX">+244 XXX XXX XXX</a>
-            </div>
-          </div>
-          <!-- ADICIONA MAIS RESPONSÁVEIS AQUI -->
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+			<!--
+		  ═══════════════════════════════════════════
+		  COMO ADICIONAR RESPONSÁVEIS:
+		  Copia este .contact-card e:
+		  - Troca src="assets/img_temporary.jpg" pela foto real
+		  - Preenche [Nome], [Cargo] e número de telefone
+		  ═══════════════════════════════════════════
+		-->
+			<div class="contact-card">
+			  <div class="contact-avatar">
+				<img
+				  src="assets/img_temporary.jpg"
+				  alt="Responsável"
+				  onerror="this.style.display = 'none'"
+				/>
+			  </div>
+			  <div class="contact-info">
+				<div class="c-role">Chefe do Conselho do Clube</div>
+				<div class="c-name">Diana Longuenda</div>
+				<a class="c-phone" href="tel:+244931285580"
+				  >📱 +244 931 285 580</a
+				>
+			  </div>
+			</div>
 
+			<div class="contact-card">
+			  <div class="contact-avatar">
+				<img
+				  src="assets/img_temporary.jpg"
+				  alt="Responsável"
+				  onerror="this.style.display = 'none'"
+				/>
+			  </div>
+			  <div class="contact-info">
+				<div class="c-role">Chefe dos Instrutores</div>
+				<div class="c-name">Zenaida Manuel</div>
+				<a class="c-phone" href="tel:+244928447740"
+				  >📱 +244 928 447 740</a
+				>
+			  </div>
+			</div>
+			<!-- ADICIONA MAIS RESPONSÁVEIS AQUI -->
+		  </div>
+		</div>
+	  </div>
+	</section>
 
-<!-- ════════════════════════════════ FOOTER ════ -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="fb-logo">
-          <img src="assets/img_temporary.jpg" alt="Logo PN"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <span class="logo-fallback" style="display:none">PN</span>
-        </div>
-        <div class="fb-name">Palanca Negra</div>
-        <p>Clube de Desbravadores Palanca Negra<br>IASD Central de Luanda<br>Rua Rey Katyavala, Luanda, Angola</p>
-      </div>
+	<!-- ════════════════════════════════ WHATSAPP SHARE ════ -->
+	<section id="partilha" class="section">
+	  <div class="container">
+		<div style="margin-bottom: var(--s5)">
+		  <p class="section-label gs-fade" style="color: #25d366">Partilha</p>
+		  <h2 class="section-title gs-fade" style="margin-bottom: var(--s2)">
+			Partilha no WhatsApp
+		  </h2>
+		  <p class="section-desc gs-fade">
+			Convida os teus contactos para o desfile — personaliza a mensagem
+		  </p>
+		</div>
 
-      <div class="footer-col">
-        <h5>Navegação</h5>
-        <ul>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#cronograma">Cronograma</a></li>
-          <li><a href="#rota">Rota</a></li>
-          <li><a href="#comissoes">Comissões</a></li>
-          <li><a href="#visitas">Visitas</a></li>
-          <li><a href="#transmissao">Transmissão</a></li>
-        </ul>
-      </div>
+		<div class="share-layout">
+		  <!-- Preview da mensagem -->
+		  <div class="share-preview">
+			<h3>Pré-visualização</h3>
+			<div class="msg-bubble" id="msgPreview">Carregando...</div>
+			<div class="share-btns">
+			  <a
+				id="waStatusLink"
+				href="#"
+				target="_blank"
+				class="wa-btn wa-status"
+			  >
+				<svg
+				  width="20"
+				  height="20"
+				  viewBox="0 0 24 24"
+				  fill="currentColor"
+				>
+				  <path
+					d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"
+				  />
+				</svg>
+				Partilhar no Status
+			  </a>
+			  <a
+				id="waGroupLink"
+				href="#"
+				target="_blank"
+				class="wa-btn wa-group"
+			  >
+				<svg
+				  width="20"
+				  height="20"
+				  viewBox="0 0 24 24"
+				  fill="currentColor"
+				>
+				  <path
+					d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+				  />
+				</svg>
+				Enviar para Grupos
+			  </a>
+			</div>
+		  </div>
 
-      <div class="footer-col">
-        <h5>Evento</h5>
-        <ul>
-          <li><a href="#">Desfile de Ordem Unida</a></li>
-          <li><a href="#">28 de Junho de 2026</a></li>
-          <li><a href="#">Luanda, Angola</a></li>
-          <li><a href="#partilha">Partilhar</a></li>
-        </ul>
-      </div>
+		  <!-- Personalização -->
+		  <div class="share-customize">
+			<h3>Personaliza a Mensagem</h3>
 
-      <div class="footer-col">
-        <h5>Redes Sociais</h5>
-        <ul>
-          <li><a href="https://instagram.com/10bravadores_palancanegra" target="_blank">Instagram</a></li>
-          <li><a href="https://youtube.com/desbravadorespalancanegra307" target="_blank">YouTube</a></li>
-          <li><a href="https://wa.me/2449XXXXXXXX" target="_blank">WhatsApp</a></li>
-          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
-        </ul>
-      </div>
-    </div>
+			<div class="form-group">
+			  <label>O teu nome</label>
+			  <input
+				type="text"
+				id="shareNome"
+				placeholder="Ex: João Silva"
+				value=""
+			  />
+			</div>
 
-    <div class="footer-bottom">
-      <p>© 2026 Clube de Desbravadores Palanca Negra · "Quebrando Silêncio, Uma Verdade Desconhecida"</p>
-      <div class="footer-socials">
-        <!--
-          ÍCONES DO FOOTER:
-          Substitui .fs-fallback por <img src="assets/icon-X.png">
-          quando tiveres os logos das redes sociais
-        -->
-        <a href="https://instagram.com/10bravadores_palancanegra" target="_blank" class="footer-social-icon" title="Instagram">
-          <span class="fs-fallback">Ig</span>
-        </a>
-        <a href="https://youtube.com/desbravadorespalancanegra307" target="_blank" class="footer-social-icon" title="YouTube">
-          <span class="fs-fallback">Yt</span>
-        </a>
-        <a href="https://wa.me/2449XXXXXXXX" target="_blank" class="footer-social-icon" title="WhatsApp">
-          <span class="fs-fallback">Wa</span>
-        </a>
-        <a href="https://facebook.com" target="_blank" class="footer-social-icon" title="Facebook">
-          <span class="fs-fallback">Fb</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
+			<div class="form-group">
+			  <label>Link do site</label>
+			  <input
+				type="text"
+				id="shareLink"
+				placeholder="https://desfile-palanca-negra.vercel.app"
+				value="https://desfile-palanca-negra.vercel.app"
+				readonly
+			  />
+			</div>
 
+			<div class="form-group">
+			  <label>Mensagem extra (opcional)</label>
+			  <textarea
+				id="shareExtra"
+				placeholder="Adiciona uma mensagem personalizada..."
+			  ></textarea>
+			</div>
 
-<!-- ════════════════════════════════ SCRIPTS ════ -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+			<div class="form-group">
+			  <label>Tom da mensagem</label>
+			  <select id="shareTom">
+				<option value="formal">Formal</option>
+				<option value="amigavel" selected>Amigável</option>
+				<option value="entusiasmado">Entusiasmado</option>
+			  </select>
+			</div>
 
+			<button
+			  class="btn btn-primary"
+			  onclick="updateShareMsg()"
+			  style="width: 100%; justify-content: center"
+			>
+			  Actualizar Pré-visualização
+			</button>
+		  </div>
+		</div>
+	  </div>
+	</section>
 
+	<!-- ════════════════════════════════ TRANSMISSÃO ════ -->
+	<section id="transmissao" class="section">
+	  <div class="container">
+		<div style="margin-bottom: var(--s5)">
+		  <p class="section-label gs-fade" style="color: var(--red)">
+			Em Directo
+		  </p>
+		  <h2 class="section-title gs-fade" style="margin-bottom: var(--s2)">
+			Transmissão ao Vivo
+		  </h2>
+		  <p class="section-desc gs-fade">
+			Segue o desfile em directo no dia 28 de Junho de 2026
+		  </p>
+		</div>
 
-    <script src="script.js"></script>
-</body>
+		<!-- Bloqueado antes do evento -->
+		<div class="live-locked gs-fade" id="liveLocked">
+		  <div class="live-locked-icon">📺</div>
+		  <h3>A transmissão ainda não começou</h3>
+		  <p>
+			A transmissão ao vivo ficará disponível no dia 28 de Junho de 2026.
+			Activa as notificações nos nossos canais para ser avisado.
+		  </p>
+
+		  <!-- Mini timer até ao dia -->
+		  <div class="live-timer">
+			<div class="lt-item">
+			  <div class="lt-num" id="lt-d">--</div>
+			  <div class="lt-lbl">Dias</div>
+			</div>
+			<div class="lt-sep">:</div>
+			<div class="lt-item">
+			  <div class="lt-num" id="lt-h">--</div>
+			  <div class="lt-lbl">Horas</div>
+			</div>
+			<div class="lt-sep">:</div>
+			<div class="lt-item">
+			  <div class="lt-num" id="lt-m">--</div>
+			  <div class="lt-lbl">Min</div>
+			</div>
+		  </div>
+
+		  <!-- Botões para activar notificações nos canais -->
+		  <div class="live-platforms-row" style="margin-top: var(--s3)">
+			<a
+			  href="https://youtube.com/desbravadorespalancanegra307"
+			  target="_blank"
+			  class="live-plat-btn"
+			>
+			  <!-- ÍCONE YOUTUBE: troca por <img src="assets/yt-icon.png"> quando tiveres -->
+			  <div
+				class="lp-icon lp-icon-youtube"
+				style="
+				  width: 24px;
+				  height: 24px;
+				  border-radius: 4px;
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				"
+			  >
+			  <img src="assets/youtube_logo.png">
+			  </div>
+			  Subscreve no YouTube
+			</a>
+			<a
+			  href="https://instagram.com/10bravadores_palancanegra"
+			  target="_blank"
+			  class="live-plat-btn"
+			>
+			  <div
+				class="lp-icon lp-icon-instagram"
+				style="
+				  width: 24px;
+				  height: 24px;
+				  border-radius: 4px;
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				  font-size: 14px;
+				"
+			  >
+			  <img src="assets/instagram_logo.jpg">
+			  </div>
+			  Segue no Instagram
+			</a>
+			<a
+			  href="https://www.facebook.com/search/top/?q=Desbravadores%20Palanca%20Negra"
+			  target="_blank"
+			  class="live-plat-btn"
+			>
+			  <div
+				class="lp-icon lp-icon-facebook"
+				style="
+				  width: 24px;
+				  height: 24px;
+				  border-radius: 4px;
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				  font-weight: 700;
+				"
+			  >
+			  <img src="assets/facebook_logo.png">
+			  </div>
+			  Segue no Facebook
+			</a>
+		  </div>
+		</div>
+
+		<!-- Activo no dia do evento — ficará visível automaticamente -->
+		<div class="live-active gs-fade" id="liveActive">
+		  <div
+			style="
+			  display: flex;
+			  align-items: center;
+			  gap: var(--s2);
+			  margin-bottom: var(--s3);
+			"
+		  >
+			<span class="badge badge-live">● AO VIVO</span>
+			<span style="font-size: 13px; color: var(--text-secondary)"
+			  >Transmissão em directo · 28 Jun 2026</span
+			>
+		  </div>
+
+		  <!-- Embed principal: YouTube (preenche com o ID do vídeo ao vivo) -->
+		  <div class="live-main-embed">
+			<!--
+		  EDITAR NO DIA: substitui VIDEO_ID_YOUTUBE pelo ID real do livestream
+		  Ex: https://www.youtube.com/watch?v=abc123 → VIDEO_ID = abc123
+		-->
+			<iframe
+			  src="https://www.youtube.com/embed/VIDEO_ID_YOUTUBE?autoplay=1&rel=0"
+			  allow="
+				accelerometer;
+				autoplay;
+				clipboard-write;
+				encrypted-media;
+				gyroscope;
+				picture-in-picture;
+			  "
+			  allowfullscreen
+			>
+			</iframe>
+		  </div>
+
+		  <!-- Botões para outras plataformas -->
+		  <div class="live-platforms-row">
+			<a
+			  href="https://youtube.com/desbravadorespalancanegra307"
+			  target="_blank"
+			  class="live-plat-btn"
+			>
+			  <div
+				class="lp-icon lp-icon-youtube"
+				style="
+				  width: 24px;
+				  height: 24px;
+				  border-radius: 4px;
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				"
+			  >
+				▶
+			  </div>
+			  Abrir no YouTube
+			</a>
+			<a
+			  href="https://instagram.com/10bravadores_palancanegra"
+			  target="_blank"
+			  class="live-plat-btn"
+			>
+			  <div
+				class="lp-icon lp-icon-instagram"
+				style="
+				  width: 24px;
+				  height: 24px;
+				  border-radius: 4px;
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				  font-size: 14px;
+				"
+			  >
+				📸
+			  </div>
+			  Abrir no Instagram
+			</a>
+			<a
+			  href="https://www.facebook.com/search/top/?q=Desbravadores%20Palanca%20Negra"
+			  target="_blank"
+			  class="live-plat-btn"
+			>
+			  <div
+				class="lp-icon lp-icon-facebook"
+				style="
+				  width: 24px;
+				  height: 24px;
+				  border-radius: 4px;
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				  font-weight: 700;
+				"
+			  >
+				f
+			  </div>
+			  Abrir no Facebook
+			</a>
+		  </div>
+
+		  <!--
+		NOTA SOBRE RTMP/TRANSMISSÃO INTEGRADA:
+		Para transmissão RTMP directamente no site (sem depender de YouTube/Instagram),
+		podes usar o servidor de streaming Nginx-RTMP + Video.js HLS player.
+		Precisa de um servidor próprio. O bloco embed abaixo serve para isso:
+
+		<video id="liveRtmpPlayer" class="video-js" controls autoplay muted>
+		  <source src="https://SEU_SERVIDOR/hls/live.m3u8" type="application/x-mpegURL"/>
+		</video>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video-js.min.css" rel="stylesheet"/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video.min.js"></script>
+
+		Para eventos pequenos sem servidor, YouTube Live (gratuito) é a melhor opção.
+	  -->
+		</div>
+	  </div>
+	</section>
+
+	<!-- ════════════════════════════════ CONTACTO ════ -->
+	<section id="contacto" class="section">
+	  <div class="container">
+		<div style="margin-bottom: var(--s5)">
+		  <p class="section-label gs-fade">Fala Connosco</p>
+		  <h2 class="section-title gs-fade" style="margin-bottom: var(--s2)">
+			Contacto
+		  </h2>
+		  <p class="section-desc gs-fade">
+			Redes sociais e responsáveis do Departamento Social do Desfile
+		  </p>
+		</div>
+
+		<div class="contacto-layout">
+		  <!-- Redes sociais -->
+		  <div>
+			<p
+			  style="
+				font-size: 11px;
+				font-weight: 700;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--text-muted);
+				margin-bottom: var(--s3);
+			  "
+			>
+			  Redes Sociais
+			</p>
+			<div class="social-grid gs-fade">
+			  <!--
+			═══════════════════════════════════════════
+			ÍCONES DAS REDES SOCIAIS:
+			Substitui o .si-letter por <img src="assets/icon-instagram.png" style="width:100%;height:100%;object-fit:cover">
+			quando tiveres os ícones/logos das plataformas
+			═══════════════════════════════════════════
+		  -->
+
+			  <a
+				href="https://instagram.com/10bravadores_palancanegra"
+				target="_blank"
+				class="social-card"
+			  >
+				<div class="social-icon si-instagram">
+				  <!-- TROCAR: <img src="assets/icon-instagram.png" alt="Instagram"> -->
+				  <img
+					src="assets/instagram_logo.jpg"
+					style="width: 100%; height: 100%; object-fit: cover"
+				  />
+				</div>
+				<div class="social-info">
+				  <div class="sc-name">Instagram</div>
+				  <div class="sc-handle">@10bravadores_palancanegra</div>
+				</div>
+			  </a>
+
+			  <a
+				href="https://youtube.com/desbravadorespalancanegra307"
+				target="_blank"
+				class="social-card"
+			  >
+				<div class="social-icon si-youtube">
+				  <!-- TROCAR: <img src="assets/icon-youtube.png" alt="YouTube"> -->
+				  <img
+					src="assets/youtube_logo.png"
+					style="width: 100%; height: 100%; object-fit: cover"
+				  />
+				</div>
+				<div class="social-info">
+				  <div class="sc-name">YouTube</div>
+				  <div class="sc-handle">desbravadorespalancanegra307</div>
+				</div>
+			  </a>
+
+			  <a
+				href="https://wa.me/244925581300"
+				target="_blank"
+				class="social-card"
+			  >
+				<div class="social-icon si-whatsapp">
+				  <!-- TROCAR: <img src="assets/icon-whatsapp.png" alt="WhatsApp"> -->
+				  <img
+					src="assets/whatsapp_logo.jpg"
+					style="width: 100%; height: 100%; object-fit: cover"
+				  />
+				</div>
+				<div class="social-info">
+				  <div class="sc-name">WhatsApp</div>
+				  <div class="sc-handle">+244 925 581 300</div>
+				</div>
+			  </a>
+
+			  <a
+				href="https://www.facebook.com/search/top/?q=Desbravadores%20Palanca%20Negra"
+				target="_blank"
+				class="social-card"
+			  >
+				<div class="social-icon si-facebook">
+				  <!-- TROCAR: <img src="assets/icon-facebook.png" alt="Facebook"> -->
+				  <img
+					src="assets/facebook_logo.png"
+					style="width: 100%; height: 100%; object-fit: cover"
+				  />
+				</div>
+				<div class="social-info">
+				  <div class="sc-name">Facebook</div>
+				  <div class="sc-handle">
+					Clube de Desbravadores Palanca Negra
+				  </div>
+				</div>
+			  </a>
+
+			  <!-- ADICIONA MAIS REDES AQUI -->
+			</div>
+		  </div>
+
+		  <!-- Responsáveis dep. social -->
+		  <div>
+			<p
+			  style="
+				font-size: 11px;
+				font-weight: 700;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--text-muted);
+				margin-bottom: var(--s3);
+			  "
+			>
+			  Dep. Social do Desfile
+			</p>
+			<div class="resp-cards-wrap gs-fade">
+			  <!--
+			COMO ADICIONAR RESPONSÁVEL DO DEP. SOCIAL:
+			Copia este .resp-card e preenche.
+		  -->
+			  <div class="resp-card">
+				<div class="resp-avatar">
+				  <img
+					src="assets/img_temporary.jpg"
+					alt="Responsável"
+					onerror="this.style.display = 'none'"
+				  />
+				</div>
+				<div class="resp-info">
+				  <div class="ri-role">Responsável Social</div>
+				  <div class="ri-name">Diana Longuenda</div>
+				  <a class="ri-phone" href="tel:+244931285580"
+					>+244 931 285 580</a
+				  >
+				</div>
+			  </div>
+
+			  <div class="resp-card">
+				<div class="resp-avatar">
+				  <img
+					src="assets/img_temporary.jpg"
+					alt="Responsável"
+					onerror="this.style.display = 'none'"
+				  />
+				</div>
+				<div class="resp-info">
+				  <div class="ri-role">Comunicação Digital</div>
+				  <div class="ri-name">Josane Chicumba</div>
+				  <a class="ri-phone" href="tel:+244925937433"
+					>+244 925 937 433</a
+				  >
+				</div>
+			  </div>
+			  <!-- ADICIONA MAIS RESPONSÁVEIS AQUI -->
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</section>
+
+	<!-- ════════════════════════════════ FOOTER ════ -->
+	<footer>
+	  <div class="container">
+		<div class="footer-grid">
+		  <div class="footer-brand">
+			<div class="fb-logo">
+			  <img
+				src="assets/logo_pn.jpg"
+				alt="Logo PN"
+				onerror="
+				  this.style.display = 'none';
+				  this.nextElementSibling.style.display = 'flex';
+				"
+			  />
+			  <span class="logo-fallback" style="display: none">PN</span>
+			</div>
+			<div class="fb-name">Palanca Negra</div>
+			<p>
+			  Clube de Desbravadores Palanca Negra<br />IASD Central de
+			  Luanda<br />Rua Rey Katyavala, Luanda, Angola
+			</p>
+		  </div>
+
+		  <div class="footer-col">
+			<h5>Navegação</h5>
+			<ul>
+			  <li><a href="#sobre">Sobre</a></li>
+			  <li><a href="#cronograma">Cronograma</a></li>
+			  <li><a href="#rota">Rota</a></li>
+			  <li><a href="#comissoes">Comissões</a></li>
+			  <li><a href="#visitas">Visitas</a></li>
+			  <li><a href="#transmissao">Transmissão</a></li>
+			</ul>
+		  </div>
+
+		  <div class="footer-col">
+			<h5>Evento</h5>
+			<ul>
+			  <li><a href="#">Desfile de Ordem Unida</a></li>
+			  <li><a href="#">28 de Junho de 2026</a></li>
+			  <li><a href="#">Luanda, Angola</a></li>
+			  <li><a href="#partilha">Partilhar</a></li>
+			</ul>
+		  </div>
+
+		  <div class="footer-col">
+			<h5>Redes Sociais</h5>
+			<ul>
+			  <li>
+				<a
+				  href="https://instagram.com/10bravadores_palancanegra"
+				  target="_blank"
+				  >Instagram</a
+				>
+			  </li>
+			  <li>
+				<a
+				  href="https://youtube.com/desbravadorespalancanegra307"
+				  target="_blank"
+				  >YouTube</a
+				>
+			  </li>
+			  <li>
+				<a href="https://wa.me/2449XXXXXXXX" target="_blank"
+				  >WhatsApp</a
+				>
+			  </li>
+			  <li>
+				<a href="https://www.facebook.com/search/top/?q=Desbravadores%20Palanca%20Negra" target="_blank">Facebook</a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+
+		<div class="footer-bottom">
+		  <p>
+			© 2026 Clube de Desbravadores Palanca Negra · "Quebrando Silêncio,
+			Uma Verdade Desconhecida"
+		  </p>
+		  <div class="footer-socials">
+			<!--
+		  ÍCONES DO FOOTER:
+		  Substitui .fs-fallback por <img src="assets/icon-X.png">
+		  quando tiveres os logos das redes sociais
+		-->
+			<a
+			  href="https://instagram.com/10bravadores_palancanegra"
+			  target="_blank"
+			  class="footer-social-icon"
+			  title="Instagram"
+			>
+			  <span class="fs-fallback"
+				><img src="assets/instagram_logo.jpg" alt="Instagram"
+			  /></span>
+			</a>
+			<a
+			  href="https://youtube.com/desbravadorespalancanegra307"
+			  target="_blank"
+			  class="footer-social-icon"
+			  title="YouTube"
+			>
+			  <span class="fs-fallback"
+				><img src="assets/youtube_logo.png" alt="YouTube"
+			  /></span>
+			</a>
+			<a
+			  href="https://wa.me/2449XXXXXXXX"
+			  target="_blank"
+			  class="footer-social-icon"
+			  title="WhatsApp"
+			>
+			  <span class="fs-fallback"
+				><img src="assets/whatsapp_logo.jpg" alt="Whatsapp"
+			  /></span>
+			</a>
+			<a
+			  href="https://www.facebook.com/search/top/?q=Desbravadores%20Palanca%20Negra"
+			  target="_blank"
+			  class="footer-social-icon"
+			  title="Facebook"
+			>
+			  <span class="fs-fallback"
+				><img src="assets/facebook_logo.png" alt="Facebook"
+			  /></span>
+			</a>
+		  </div>
+		</div>
+	  </div>
+	</footer>
+
+	<!-- ════════════════════════════════ SCRIPTS ════ -->
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+	<script src="script.js"></script>
+  </body>
 </html>
-HTMLEOF
