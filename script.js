@@ -1,3 +1,6 @@
+if (typeof gsap === 'undefined') {
+	document.documentElement.classList.add('no-gsap');
+}  
 
 /* ═══════════════════════════════════════════
    THEME TOGGLE (auto-detect + manual)
@@ -44,7 +47,7 @@
 /* ═══════════════════════════════════════════
    COUNTDOWN — shared logic
 ═══════════════════════════════════════════ */
-const EVENT_DATE = new Date('2026-06-28T08:00:00Z');
+const EVENT_DATE = new Date('2026-06-28T08:00:00');
 
 function getCountdownValues() {
   const diff = Math.max(0, EVENT_DATE - new Date());
@@ -300,11 +303,28 @@ setInterval(() => { updateHeroCountdown(); updateRingCountdown(); updateLiveTime
    DEPT TABS
 ═══════════════════════════════════════════ */
 function switchDept(btn, id) {
-  document.querySelectorAll('.dept-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.dept-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('dept-' + id).classList.add('active');
-}
+	document.querySelectorAll('.dept-btn').forEach(b => b.classList.remove('active'));
+	document.querySelectorAll('.dept-panel').forEach(p => p.classList.remove('active'));
+	btn.classList.add('active');
+  
+	const panel = document.getElementById('dept-' + id);
+	panel.classList.add('active');
+  
+	/* Reanima os cards do novo departamento */
+	if (typeof gsap !== 'undefined') {
+	  const cards = panel.querySelectorAll('.member-card');
+	  gsap.fromTo(cards,
+		{ opacity: 0, scale: 0.93, y: 20 },
+		{
+		  opacity: 1, scale: 1, y: 0,
+		  duration: 0.45,
+		  ease: 'back.out(1.4)',
+		  stagger: 0.07,
+		  clearProps: 'all'   /* limpa os inline styles depois — evita conflitos */
+		}
+	  );
+	}
+  }
 
 
 /* ═══════════════════════════════════════════
