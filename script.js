@@ -578,3 +578,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
 });
+
+/* ═══════════════════════════════════════════
+   MODAIS — TERMOS E PRIVACIDADE
+═══════════════════════════════════════════ */
+document.querySelectorAll('a[href="#termos"], a[href="#privacidade"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const id = link.getAttribute('href').slice(1);
+    const modal = document.getElementById(id);
+    modal.style.display = 'flex';
+  });
+});
+
+// Fechar com tecla Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('termos').style.display = 'none';
+    document.getElementById('privacidade').style.display = 'none';
+  }
+});

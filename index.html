@@ -1707,58 +1707,34 @@
 		</div>
 
 		<div class="footer-bottom">
-		  <p>
-			© 2026 Clube de Desbravadores Palanca Negra · "Quebrando Silêncio,
-			Uma Verdade Desconhecida"
-		  </p>
-		  <div class="footer-socials">
-			<!--
-		  ÍCONES DO FOOTER:
-		  Substitui .fs-fallback por <img src="assets/icon-X.png">
-		  quando tiveres os logos das redes sociais
-		-->
-			<a
-			  href="https://instagram.com/10bravadores_palancanegra"
-			  target="_blank"
-			  class="footer-social-icon"
-			  title="Instagram"
-			>
-			  <span class="fs-fallback"
-				><img src="assets/instagram_logo.jpg" alt="Instagram"
-			  /></span>
-			</a>
-			<a
-			  href="https://youtube.com/desbravadorespalancanegra307"
-			  target="_blank"
-			  class="footer-social-icon"
-			  title="YouTube"
-			>
-			  <span class="fs-fallback"
-				><img src="assets/youtube_logo.png" alt="YouTube"
-			  /></span>
-			</a>
-			<a
-			  href="https://wa.me/244925581300"
-			  target="_blank"
-			  class="footer-social-icon"
-			  title="WhatsApp"
-			>
-			  <span class="fs-fallback"
-				><img src="assets/whatsapp_logo.jpg" alt="Whatsapp"
-			  /></span>
-			</a>
-			<a
-			  href="https://www.facebook.com/search/top/?q=Desbravadores%20Palanca%20Negra"
-			  target="_blank"
-			  class="footer-social-icon"
-			  title="Facebook"
-			>
-			  <span class="fs-fallback"
-				><img src="assets/facebook_logo.png" alt="Facebook"
-			  /></span>
-			</a>
+			<p>© 2026 Clube de Desbravadores Palanca Negra · Todos os direitos reservados</p>
+			<div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+			  <div class="footer-socials">
+				<a href="https://instagram.com/10bravadores_palancanegra" target="_blank" class="footer-social-icon" title="Instagram">
+				  <span class="fs-fallback"><img src="assets/instagram_logo.jpg" alt="Instagram"/></span>
+				</a>
+				<a href="https://youtube.com/desbravadorespalancanegra307" target="_blank" class="footer-social-icon" title="YouTube">
+				  <span class="fs-fallback"><img src="assets/youtube_logo.png" alt="YouTube"/></span>
+				</a>
+				<a href="https://wa.me/244925581300" target="_blank" class="footer-social-icon" title="WhatsApp">
+				  <span class="fs-fallback"><img src="assets/whatsapp_logo.jpg" alt="Whatsapp"/></span>
+				</a>
+				<a href="https://www.facebook.com/search/top/?q=Desbravadores%20Palanca%20Negra" target="_blank" class="footer-social-icon" title="Facebook">
+				  <span class="fs-fallback"><img src="assets/facebook_logo.png" alt="Facebook"/></span>
+				</a>
+			  </div>
+			  <div style="display:flex; gap:1rem;">
+				<a href="#termos" style="font-size:12px; color:var(--text-muted); transition:color var(--t-fast);"
+				   onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+				  Termos de Uso
+				</a>
+				<a href="#privacidade" style="font-size:12px; color:var(--text-muted); transition:color var(--t-fast);"
+				   onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+				  Política de Privacidade
+				</a>
+			  </div>
+			</div>
 		  </div>
-		</div>
 	  </div>
 	</footer>
 
@@ -1766,5 +1742,98 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 	<script src="script.js"></script>
+	<!-- ════ MODAL: TERMOS DE USO ════ -->
+<div id="termos" style="
+  display:none; position:fixed; inset:0; z-index:2000;
+  background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
+  align-items:center; justify-content:center; padding:var(--s4);
+" onclick="if(event.target===this)this.style.display='none'">
+  <div style="
+    background:var(--bg-elevated); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:var(--s5); max-width:640px;
+    width:100%; max-height:80vh; overflow-y:auto; position:relative;
+  ">
+    <button onclick="document.getElementById('termos').style.display='none'" style="
+      position:absolute; top:var(--s3); right:var(--s3);
+      width:32px; height:32px; border-radius:50%; background:var(--bg-card);
+      border:1px solid var(--border); color:var(--text-secondary);
+      font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    ">×</button>
+
+    <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:0.5rem">Termos de Uso</p>
+    <h2 style="font-family:var(--f-display);font-size:1.8rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--s3)">Termos de Uso</h2>
+
+    <div style="font-size:0.9rem;color:var(--text-secondary);line-height:1.8;font-weight:300;display:flex;flex-direction:column;gap:var(--s2)">
+      <p><strong style="color:var(--text-primary)">1. Aceitação dos Termos</strong><br>
+      Ao aceder a este site, o utilizador aceita os presentes termos de uso na íntegra. Caso não concorde, deverá abster-se de utilizar o site.</p>
+
+      <p><strong style="color:var(--text-primary)">2. Finalidade do Site</strong><br>
+      Este site tem carácter informativo e destina-se exclusivamente à divulgação do Desfile de Ordem Unida do Clube de Desbravadores Palanca Negra, realizado a 28 de Junho de 2026, em Luanda, Angola.</p>
+
+      <p><strong style="color:var(--text-primary)">3. Propriedade Intelectual</strong><br>
+      Todo o conteúdo disponível neste site — incluindo textos, imagens, logótipos, fotografias e elementos gráficos — é propriedade do Clube de Desbravadores Palanca Negra ou dos seus respectivos autores, estando protegido pelas leis angolanas de propriedade intelectual. A reprodução, total ou parcial, sem autorização prévia e escrita é expressamente proibida.</p>
+
+      <p><strong style="color:var(--text-primary)">4. Uso Permitido</strong><br>
+      É permitida a partilha de conteúdo para fins de divulgação do evento, desde que seja indicada a fonte e não seja feita qualquer alteração ao conteúdo original.</p>
+
+      <p><strong style="color:var(--text-primary)">5. Responsabilidade</strong><br>
+      O Clube de Desbravadores Palanca Negra não se responsabiliza por eventuais imprecisões ou alterações de última hora no programa do evento. As informações serão actualizadas com a maior brevidade possível.</p>
+
+      <p><strong style="color:var(--text-primary)">6. Links Externos</strong><br>
+      Este site pode conter ligações para plataformas externas (YouTube, Instagram, Facebook, WhatsApp). O clube não se responsabiliza pelo conteúdo dessas plataformas.</p>
+
+      <p><strong style="color:var(--text-primary)">7. Alterações</strong><br>
+      O Clube de Desbravadores Palanca Negra reserva-se o direito de alterar os presentes termos a qualquer momento, sem aviso prévio.</p>
+
+      <p style="margin-top:var(--s2);font-size:0.8rem;color:var(--text-muted)">Última actualização: Junho de 2026</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════ MODAL: POLÍTICA DE PRIVACIDADE ════ -->
+<div id="privacidade" style="
+  display:none; position:fixed; inset:0; z-index:2000;
+  background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
+  align-items:center; justify-content:center; padding:var(--s4);
+" onclick="if(event.target===this)this.style.display='none'">
+  <div style="
+    background:var(--bg-elevated); border:1px solid var(--border);
+    border-radius:var(--r-xl); padding:var(--s5); max-width:640px;
+    width:100%; max-height:80vh; overflow-y:auto; position:relative;
+  ">
+    <button onclick="document.getElementById('privacidade').style.display='none'" style="
+      position:absolute; top:var(--s3); right:var(--s3);
+      width:32px; height:32px; border-radius:50%; background:var(--bg-card);
+      border:1px solid var(--border); color:var(--text-secondary);
+      font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    ">×</button>
+
+    <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:0.5rem">Privacidade</p>
+    <h2 style="font-family:var(--f-display);font-size:1.8rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--s3)">Política de Privacidade</h2>
+
+    <div style="font-size:0.9rem;color:var(--text-secondary);line-height:1.8;font-weight:300;display:flex;flex-direction:column;gap:var(--s2)">
+      <p><strong style="color:var(--text-primary)">1. Dados Recolhidos</strong><br>
+      Este site não recolhe, armazena nem processa dados pessoais dos seus visitantes. Não existem formulários de registo, cookies de rastreamento, nem sistemas de análise de comportamento activos.</p>
+
+      <p><strong style="color:var(--text-primary)">2. Partilha no WhatsApp</strong><br>
+      A funcionalidade de partilha no WhatsApp disponível neste site abre a aplicação WhatsApp no dispositivo do utilizador com uma mensagem pré-preenchida. Nenhuma informação é enviada para os servidores do clube — a partilha é feita inteiramente pelo utilizador, a partir do seu próprio dispositivo.</p>
+
+      <p><strong style="color:var(--text-primary)">3. Plataformas Externas</strong><br>
+      Este site incorpora conteúdos e ligações para plataformas de terceiros (YouTube, Instagram, Facebook, WhatsApp). Ao aceder a essas plataformas, o utilizador fica sujeito às respectivas políticas de privacidade, sobre as quais o clube não tem controlo.</p>
+
+      <p><strong style="color:var(--text-primary)">4. Fotografias e Imagens</strong><br>
+      As fotografias dos membros da organização publicadas neste site foram obtidas com o consentimento dos mesmos para fins de divulgação do evento. O utilizador não está autorizado a reproduzir ou utilizar essas imagens sem autorização prévia.</p>
+
+      <p><strong style="color:var(--text-primary)">5. Transmissão ao Vivo</strong><br>
+      A transmissão ao vivo do evento é realizada através do YouTube. A captação de imagem durante o desfile pode incluir a presença de participantes e espectadores em espaço público.</p>
+
+      <p><strong style="color:var(--text-primary)">6. Contacto</strong><br>
+      Para qualquer questão relacionada com privacidade, pode contactar o Departamento Social do clube através dos contactos disponíveis na secção Contacto deste site.</p>
+
+      <p style="margin-top:var(--s2);font-size:0.8rem;color:var(--text-muted)">Última actualização: Junho de 2026</p>
+    </div>
+  </div>
+</div>
   </body>
 </html>
