@@ -43,7 +43,7 @@
 	  <div class="nav-inner">
 		<a href="#hero" class="nav-brand">
 		  <div class="nav-logo-img">
-			<!-- LOGO: substitui pelo caminho real da imagem -->
+			<!-- LOGO -->
 			<img
 			  src="assets/logo_pn2.jpg"
 			  alt="Palanca Negra"
@@ -459,19 +459,6 @@
 		<div class="timeline-wrap">
 		  <div class="timeline-rail"></div>
 
-		  <!--
-		═══════════════════════════════════════════
-		COMO ADICIONAR EVENTOS AO CRONOGRAMA:
-		Copia o bloco .tl-item abaixo e preenche:
-		- .tl-time: hora e AM/PM
-		- .tl-tag: categoria (Concentração / Desfile / Encerramento...)
-		  Para evento principal, adiciona class="tag-gold"
-		- h4: título do evento
-		- p: descrição
-		Para ponto de destaque (dot dourado), usa class="tl-dot gold-dot"
-		═══════════════════════════════════════════
-	  -->
-
 		  <div class="tl-item gs-fade">
 			<div class="tl-time">07:30<small>AM</small></div>
 			<div class="tl-dot"></div>
@@ -694,13 +681,6 @@
 		  </h2>
 		</div>
 
-		<!--
-	  ═══════════════════════════════════════════
-	  COMO ADICIONAR UM DEPARTAMENTO:
-	  1. Adiciona um botão .dept-btn com onclick="switchDept(this,'ID')"
-	  2. Adiciona um .dept-panel com o id="dept-ID"
-	  ═══════════════════════════════════════════
-	-->
 		<div class="dept-nav gs-fade">
 		  <button class="dept-btn active" onclick="switchDept(this, 'direcao')">
 			Direcção
@@ -726,14 +706,6 @@
 			<h3>Direcção do Clube</h3>
 		  </div>
 		  <div class="members-grid">
-			<!--
-		  ═══════════════════════════════════════════
-		  COMO ADICIONAR UM MEMBRO:
-		  Copia este bloco .member-card e:
-		  - Troca src="assets/img_temporary.jpg" pela foto real
-		  - Preenche [Nome Completo] e [Cargo]
-		  ═══════════════════════════════════════════
-		-->
 			<div class="member-card">
 			  <div class="member-photo">
 				<img
@@ -769,16 +741,6 @@
 				<div class="m-role">Directora Associada do Clube</div>
 			  </div>
 			</div>
-
-			<!--div class="member-card">
-		  <div class="member-photo">
-			<img src="assets/img_temporary.jpg" alt="Membro"/>
-		  </div>
-		  <div class="member-info">
-			<div class="m-name">[Nome Completo]</div>
-			<div class="m-role">Tesoureiro(a)</div>
-		  </div>
-		</div-->
 			<!-- ADICIONA MAIS MEMBROS AQUI -->
 		  </div>
 		</div>
@@ -1066,15 +1028,6 @@
 			>
 			  Para qualquer questão, dúvida ou emergência durante o evento:
 			</p>
-
-			<!--
-		  ═══════════════════════════════════════════
-		  COMO ADICIONAR RESPONSÁVEIS:
-		  Copia este .contact-card e:
-		  - Troca src="assets/img_temporary.jpg" pela foto real
-		  - Preenche [Nome], [Cargo] e número de telefone
-		  ═══════════════════════════════════════════
-		-->
 			<div class="contact-card">
 			  <div class="contact-avatar">
 				<img
@@ -1275,7 +1228,6 @@
 			  target="_blank"
 			  class="live-plat-btn"
 			>
-			  <!-- ÍCONE YOUTUBE: troca por <img src="assets/yt-icon.png"> quando tiveres -->
 			  <div
 				class="lp-icon lp-icon-youtube"
 				style="
@@ -1287,7 +1239,7 @@
 				  justify-content: center;
 				"
 			  >
-			  <img src="assets/youtube_logo.png">
+			  <img src="assets/youtube_logo.png" alt="youtube_logo">
 			  </div>
 			  Subscreve no YouTube
 			</a>
@@ -1308,7 +1260,7 @@
 				  font-size: 14px;
 				"
 			  >
-			  <img src="assets/instagram_logo.jpg">
+			  <img src="assets/instagram_logo.jpg" alt="instagram_logo">
 			  </div>
 			  Segue no Instagram
 			</a>
@@ -1329,7 +1281,7 @@
 				  font-weight: 700;
 				"
 			  >
-			  <img src="assets/facebook_logo.png">
+			  <img src="assets/facebook_logo.png" alt="facebook_logo">
 			  </div>
 			  Segue no Facebook
 			</a>
@@ -1359,10 +1311,9 @@
 		  Ex: https://www.youtube.com/watch?v=abc123 → VIDEO_ID = abc123
 		-->
 			<iframe
-			  src="https://www.youtube.com/embed/VIDEO_ID_YOUTUBE?autoplay=1&rel=0"
+			  src="https://www.youtube.com/embed/uWTlTd0l8sU?autoplay=0&rel=0"
 			  allow="
 				accelerometer;
-				autoplay;
 				clipboard-write;
 				encrypted-media;
 				gyroscope;
@@ -1439,21 +1390,6 @@
 			  Abrir no Facebook
 			</a>
 		  </div>
-
-		  <!--
-		NOTA SOBRE RTMP/TRANSMISSÃO INTEGRADA:
-		Para transmissão RTMP directamente no site (sem depender de YouTube/Instagram),
-		podes usar o servidor de streaming Nginx-RTMP + Video.js HLS player.
-		Precisa de um servidor próprio. O bloco embed abaixo serve para isso:
-
-		<video id="liveRtmpPlayer" class="video-js" controls autoplay muted>
-		  <source src="https://SEU_SERVIDOR/hls/live.m3u8" type="application/x-mpegURL"/>
-		</video>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video-js.min.css" rel="stylesheet"/>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video.min.js"></script>
-
-		Para eventos pequenos sem servidor, YouTube Live (gratuito) é a melhor opção.
-	  -->
 		</div>
 	  </div>
 	</section>
@@ -1487,24 +1423,15 @@
 			  Redes Sociais
 			</p>
 			<div class="social-grid gs-fade">
-			  <!--
-			═══════════════════════════════════════════
-			ÍCONES DAS REDES SOCIAIS:
-			Substitui o .si-letter por <img src="assets/icon-instagram.png" style="width:100%;height:100%;object-fit:cover">
-			quando tiveres os ícones/logos das plataformas
-			═══════════════════════════════════════════
-		  -->
-
 			  <a
 				href="https://instagram.com/10bravadores_palancanegra"
 				target="_blank"
 				class="social-card"
 			  >
 				<div class="social-icon si-instagram">
-				  <!-- TROCAR: <img src="assets/icon-instagram.png" alt="Instagram"> -->
 				  <img
 					src="assets/instagram_logo.jpg"
-					style="width: 100%; height: 100%; object-fit: cover"
+					style="width: 100%; height: 100%; object-fit: cover" alt="instagram_logo"
 				  />
 				</div>
 				<div class="social-info">
@@ -1519,8 +1446,7 @@
 				class="social-card"
 			  >
 				<div class="social-icon si-youtube">
-				  <!-- TROCAR: <img src="assets/icon-youtube.png" alt="YouTube"> -->
-				  <img
+				  <img alt="youtube_logo"
 					src="assets/youtube_logo.png"
 					style="width: 100%; height: 100%; object-fit: cover"
 				  />
@@ -1537,9 +1463,8 @@
 				class="social-card"
 			  >
 				<div class="social-icon si-whatsapp">
-				  <!-- TROCAR: <img src="assets/icon-whatsapp.png" alt="WhatsApp"> -->
 				  <img
-					src="assets/whatsapp_logo.jpg"
+					src="assets/whatsapp_logo.jpg" alt="whatsapp_logo"
 					style="width: 100%; height: 100%; object-fit: cover"
 				  />
 				</div>
@@ -1555,9 +1480,8 @@
 				class="social-card"
 			  >
 				<div class="social-icon si-facebook">
-				  <!-- TROCAR: <img src="assets/icon-facebook.png" alt="Facebook"> -->
 				  <img
-					src="assets/facebook_logo.png"
+					src="assets/facebook_logo.png" alt="facebook_logo"
 					style="width: 100%; height: 100%; object-fit: cover"
 				  />
 				</div>
@@ -1724,11 +1648,11 @@
 				</a>
 			  </div>
 			  <div style="display:flex; gap:1rem;">
-				<a href="#termos" style="font-size:12px; color:var(--text-muted); transition:color var(--t-fast);"
+				<a href="#termos" onfocus="true" onblur="true" style="font-size:12px; color:var(--text-muted); transition:color var(--t-fast);"
 				   onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
 				  Termos de Uso
 				</a>
-				<a href="#privacidade" style="font-size:12px; color:var(--text-muted); transition:color var(--t-fast);"
+				<a href="#privacidade"  onfocus="true" onblur="true" style="font-size:12px; color:var(--text-muted); transition:color var(--t-fast);"
 				   onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
 				  Política de Privacidade
 				</a>
@@ -1743,11 +1667,11 @@
 
 	<script src="script.js"></script>
 	<!-- ════ MODAL: TERMOS DE USO ════ -->
-<div id="termos" style="
+<div id="termos" style=" 
   display:none; position:fixed; inset:0; z-index:2000;
   background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
   align-items:center; justify-content:center; padding:var(--s4);
-" onclick="if(event.target===this)this.style.display='none'">
+" onclick="if(event.target===this)this.style.display='none'" onkeyup="" onkeydown="">
   <div style="
     background:var(--bg-elevated); border:1px solid var(--border);
     border-radius:var(--r-xl); padding:var(--s5); max-width:640px;
@@ -1796,7 +1720,7 @@
   display:none; position:fixed; inset:0; z-index:2000;
   background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
   align-items:center; justify-content:center; padding:var(--s4);
-" onclick="if(event.target===this)this.style.display='none'">
+" onclick="if(event.target===this)this.style.display='none'" onkeydown="" onkeyup="">
   <div style="
     background:var(--bg-elevated); border:1px solid var(--border);
     border-radius:var(--r-xl); padding:var(--s5); max-width:640px;
