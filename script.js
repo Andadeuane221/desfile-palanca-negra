@@ -356,7 +356,8 @@ const TEMPLATES = {
   formal: (nome, link, extra) =>
 `🎖️ *DESFILE DE ORDEM UNIDA · PALANCA NEGRA 2026*
 
-Tema: _"Quebrando Silêncio, Uma Verdade Desconhecida"_
+Tema: *"Quebrando Silêncio, Uma Verdade Desconhecida"*
+Subtema: _"Uma Verdade Desconhecida - Violência digital, Abuso sexual e Exploração de menores"_
 
 📅 Data: 28 de Junho de 2026
 📍 Local: Rua Rey Katyavala → Luanda
@@ -372,6 +373,7 @@ ${nome ? `— ${nome}` : ''}`,
   Já sabes do *Desfile de Ordem Unida* do clube Palanca Negra?
 
 📌 Tema: *"Quebrando Silêncio"*
+📣 Subtema: _"Uma Verdade Desconhecida - Violência digital, Abuso sexual e Exploração de menores"_
 📅 28 de Junho de 2026 · Luanda
 
 ${extra ? extra + '\n\n' : ''}👀 Fica atento e acompanha todas as novidades! 👇
@@ -385,7 +387,8 @@ ${nome ? `Enviado por ${nome} 🙌` : ''}`,
   entusiasmado: (nome, link, extra) =>
 `🔥🎖️ *NÃO PERCAS O DESFILE DE ORDEM UNIDA DO PALANCA NEGRA!* 🎖️🔥
 
-Tema INCRÍVEL: *"QUEBRANDO SILÊNCIO, UMA VERDADE DESCONHECIDA"*
+Tema: *"QUEBRANDO SILÊNCIO"*
+Subtema: _"📣 Subtema: Uma Verdade Desconhecida - Violência digital, Abuso sexual e Exploração de menores"_
 
 📅 28 DE JUNHO DE 2026
 📍 Luanda — Rua Rey Katyavala
