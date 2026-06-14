@@ -601,3 +601,38 @@ document.addEventListener('keydown', e => {
     document.getElementById('privacidade').style.display = 'none';
   }
 });
+
+/* ═══════════════════════════════════════════
+   LOCALIZAÇÃO EM TEMPO REAL DO DESFILE
+═══════════════════════════════════════════ */
+(function liveLocation() {
+  const BIN_ID = '6a2ea193f5f4af5e29f00ecf';
+  const API_KEY = '$2a$10$1Z7Nt8aViLZPQY//G3lBMusS/Ds56dQmavVUIExScEkHKfBX3hKtW';
+  const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}/latest`;
+
+  const labelEl = document.getElementById('liveLocationLabel');
+  const timeEl = document.getElementById('liveLocationTime');
+  if (!labelEl) return;
+
+  async function fetchLocation() {
+    try {
+      const res = await fetch(API_URL, {
+        headers: { 'X-Master-Key': API_KEY }
+      });
+      const data = await res.json();
+      const record = data.record;
+      if (record.ponto === 0) {
+        labelEl.textContent = 'Desfile ainda não iniciado';
+        timeEl.textContent = '';
+      } else {
+        labelEl.textContent = record.label;
+        timeEl.textContent = record.hora ? `Actualizado às ${record.hora}` : '';
+      }
+    } catch (e) {
+      labelEl.textContent = 'Sem ligação ao servidor';
+    }
+  }
+
+  fetchLocation();
+  setInterval(fetchLocation, 15000); // actualiza a cada 15 segundos
+})();

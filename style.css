@@ -1129,3 +1129,143 @@ footer {
   transform: scale(1.01); /* leve zoom para eliminar bordas fantasmas */
 }
 
+/* ═══════════════════════════════════════════════
+   MOBILE FIXES — telas pequenas (<480px)
+═══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  /* Hero: reduzir tamanho mínimo do título */
+  .hero-h1 {
+    font-size: clamp(2.6rem, 14vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .hero-content {
+    padding: 100px var(--s4) var(--s6);
+  }
+
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+  }
+
+  .hero-meta-pill {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  /* Countdown rings: 2x2 grid em vez de linha */
+  .cd-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s3);
+    justify-content: center;
+  }
+  .cd-sep-v { display: none; }
+  .cd-ring { width: 80px; height: 80px; margin: 0 auto; }
+  .cd-ring svg { width: 80px; height: 80px; }
+  .cd-num { font-size: 1.6rem; }
+
+  /* Hero countdown: 2x2 também */
+  .hero-countdown {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s2);
+  }
+  .hcd-sep { display: none; }
+  .hcd-item { width: calc(50% - 8px); }
+  .hcd-num { font-size: clamp(2rem, 10vw, 3rem); }
+
+  /* Timeline: comprime ainda mais */
+  .tl-item {
+    grid-template-columns: 52px 14px 1fr;
+    gap: 0 10px;
+    margin-bottom: 28px;
+  }
+  .timeline-rail { left: 58px; }
+  .tl-time { font-size: 0.85rem; }
+  .tl-time small { font-size: 8px; }
+  .tl-body { padding: var(--s2); }
+  .tl-body h4 { font-size: 0.95rem; }
+  .tl-body p { font-size: 0.82rem; }
+
+  /* Map menor em telas pequenas */
+  #map { height: 360px; }
+
+  /* Live timer e countdown da transmissão */
+  .live-timer {
+    gap: var(--s2);
+    padding: var(--s2) var(--s3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .live-locked { padding: var(--s5) var(--s3); }
+  .live-locked h3 { font-size: 1.5rem; }
+
+  /* Footer bottom: stack vertical e centra */
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s3);
+  }
+  .footer-bottom > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--s2) !important;
+    width: 100%;
+  }
+
+  /* Modais: ajustar padding em telas pequenas */
+  #termos > div, #privacidade > div {
+    padding: var(--s3) !important;
+    max-height: 85vh;
+  }
+
+  /* Section titles menores */
+  .section-title { font-size: clamp(1.8rem, 9vw, 2.5rem); }
+
+  /* Dept buttons: scroll horizontal em vez de wrap apertado */
+  .dept-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .dept-nav::-webkit-scrollbar { display: none; }
+  .dept-btn { flex-shrink: 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE FIXES — telas muito pequenas (<360px)
+═══════════════════════════════════════════════ */
+@media (max-width: 360px) {
+  .hero-h1 { font-size: 2.2rem; }
+  .members-grid { grid-template-columns: 1fr; }
+  .hcd-item { width: 100%; }
+  .cd-strip { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════
+   TOUCH IMPROVEMENTS
+═══════════════════════════════════════════════ */
+@media (hover: none) {
+  /* Remove hover transforms em touch devices, mantém apenas active */
+  .member-card:hover,
+  .route-step:hover,
+  .social-card:hover,
+  .resp-card:hover {
+    transform: none;
+  }
+  .member-card:active {
+    transform: scale(0.98);
+  }
+  .dept-btn, .btn, .live-plat-btn, .wa-btn {
+    min-height: 44px; /* área de toque mínima recomendada */
+  }
+}
