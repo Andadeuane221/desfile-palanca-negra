@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta property="og:title" content="Coletânea Musical · Desfile Palanca Negra 2026">
+  <meta property="og:description" content="Hinos de Marcha do Desfile de Ordem Unida 2026 – Clube de Desbravadores Palanca Negra">
+  <meta property="og:image" content="https://desfile-palanca-negra.vercel.app/assets/logo_pn2.jpg">
+  <meta property="og:url" content="https://desfile-palanca-negra.vercel.app/coletanea.html">
+  <meta property="og:type" content="website">
+  <title>Coletânea Musical · Desfile Palanca Negra 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="assets/logo_pn2.jpg">
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* ═══ PAGE-SPECIFIC STYLES ═══ */
+
+    .col-hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      padding-bottom: var(--s7);
+    }
+
+    .col-hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(135deg, #0d0e14 0%, #0a0f1e 50%, #140a0a 100%);
+    }
+
+    /* Animated music-staff lines as background texture */
+    .col-hero-lines {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.06;
+    }
+    .col-hero-lines svg { width: 100%; height: 100%; }
+
+    .col-hero-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to top, #0d0e14 20%, transparent 80%);
+    }
+
+    .col-hero-content {
+      position: relative; z-index: 3;
+      padding: 120px var(--s4) 0;
+      width: 100%;
+    }
+
+    .col-hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: var(--s3); opacity: 0;
+    }
+    .col-hero-eyebrow::before {
+      content: ''; width: 28px; height: 1px; background: var(--gold);
+    }
+
+    .col-hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 700; line-height: 0.9;
+      color: #fff; margin-bottom: var(--s3);
+      opacity: 0;
+    }
+    .col-hero-title em {
+      font-style: italic; font-weight: 300;
+      color: var(--gold); display: block;
+    }
+
+    .col-hero-desc {
+      font-family: var(--f-head);
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); max-width: 600px;
+      margin-bottom: var(--s5); opacity: 0;
+    }
+
+    .col-hero-actions {
+      display: flex; gap: var(--s2); flex-wrap: wrap;
+      opacity: 0;
+    }
+
+    /* ── Song index bar ── */
+    .col-index {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: var(--s3) 0;
+      position: sticky; top: 64px; z-index: 100;
+    }
+
+    .col-index-inner {
+      display: flex; align-items: center; gap: var(--s2);
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; padding: 2px 0;
+    }
+    .col-index-inner::-webkit-scrollbar { display: none; }
+
+    .col-index-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-muted);
+      flex-shrink: 0; padding-right: var(--s2);
+      border-right: 1px solid var(--border);
+    }
+
+    .col-idx-btn {
+      flex-shrink: 0; padding: 6px 16px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text-secondary); cursor: pointer;
+      transition: all var(--t-fast); text-decoration: none;
+      white-space: nowrap;
+    }
+    .col-idx-btn:hover { color: var(--gold); border-color: rgba(212,175,55,0.4); }
+
+    /* ── Main layout ── */
+    .col-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--s6);
+      align-items: start;
+      padding: var(--s6) 0;
+    }
+
+    /* ── Song card ── */
+    .song-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-bottom: var(--s4);
+      transition: border-color var(--t-fast);
+      scroll-margin-top: 140px;
+    }
+    .song-card:hover { border-color: rgba(212,175,55,0.2); }
+
+    .song-header {
+      display: flex; align-items: center; gap: var(--s3);
+      padding: var(--s4);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .song-num {
+      font-family: var(--f-head);
+      font-size: 3rem; font-weight: 700; line-height: 1;
+      color: rgba(212,175,55,0.15);
+      flex-shrink: 0; width: 48px; text-align: center;
+    }
+
+    .song-meta { flex: 1; }
+    .song-title {
+      font-family: var(--f-display);
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--text-primary); line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .song-subtitle {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
+    .song-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--bg-input); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); flex-shrink: 0;
+      transition: all var(--t-fast);
+    }
+    .song-card.open .song-toggle {
+      background: rgba(212,175,55,0.15);
+      border-color: rgba(212,175,55,0.4);
+      color: var(--gold);
+      transform: rotate(180deg);
+    }
+
+    .song-body {
+      display: none;
+      padding: var(--s4);
+    }
+    .song-card.open .song-body { display: block; }
+
+    /* Secções dentro de cada música (Coro, Estrofe, etc.) */
+    .lyric-section {
+      margin-bottom: var(--s4);
+    }
+    .lyric-section:last-child { margin-bottom: 0; }
+
+    .lyric-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: var(--s2);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .lyric-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(204,0,0,0.3), transparent);
+    }
+
+    .lyric-lines {
+      font-family: var(--f-display);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 300; line-height: 1.9;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+    }
+    .lyric-lines em {
+      color: var(--gold); font-style: italic;
+    }
+
+    /* Medley section divider */
+    .medley-banner {
+      background: linear-gradient(135deg, rgba(204,0,0,0.08), rgba(0,48,135,0.08));
+      border: 1px solid rgba(204,0,0,0.15);
+      border-radius: var(--r-md);
+      padding: var(--s3) var(--s4);
+      margin-bottom: var(--s3);
+      display: flex; align-items: center; gap: var(--s2);
+    }
+    .medley-banner .mb-icon {
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .medley-banner .mb-text {
+      font-size: 12px; color: var(--text-secondary); font-weight: 300; line-height: 1.6;
+    }
+    .medley-banner .mb-text strong {
+      color: var(--text-primary); display: block;
+      font-family: var(--f-head); font-size: 14px; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 2px;
+    }
+
+    /* ── Sidebar ── */
+    .col-sidebar {
+      position: sticky; top: 130px;
+      display: flex; flex-direction: column; gap: var(--s3);
+    }
+
+    .sidebar-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: var(--s4);
+    }
+    .sidebar-card h4 {
+      font-family: var(--f-display); font-size: 1.2rem; font-weight: 600;
+      color: var(--text-primary); margin-bottom: var(--s3);
+      padding-bottom: var(--s2); border-bottom: 1px solid var(--border);
+    }
+
+    .sc-list { display: flex; flex-direction: column; gap: 8px; }
+    .sc-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: var(--r-sm);
+      background: var(--bg-card); border: 1px solid var(--border);
+      text-decoration: none; color: var(--text-secondary);
+      font-size: 13px; font-weight: 400;
+      transition: all var(--t-fast);
+    }
+    .sc-item:hover {
+      color: var(--gold); border-color: rgba(212,175,55,0.3);
+      transform: translateX(4px);
+    }
+    .sc-num {
+      font-family: var(--f-head); font-size: 0.75rem; font-weight: 700;
+      color: var(--text-muted); width: 20px; text-align: center; flex-shrink: 0;
+    }
+
+    .download-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px; border-radius: var(--r-md);
+      background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.08));
+      border: 1px solid rgba(212,175,55,0.3);
+      color: var(--gold); font-size: 13px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; transition: all var(--t-fast); cursor: pointer;
+      width: 100%;
+    }
+    .download-btn:hover {
+      background: rgba(212,175,55,0.2);
+      border-color: rgba(212,175,55,0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,175,55,0.15);
+    }
+    .download-btn svg { flex-shrink: 0; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      text-decoration: none; transition: color var(--t-fast);
+    }
+    .back-link:hover { color: var(--text-primary); }
+    .back-link svg { transition: transform var(--t-fast); }
+    .back-link:hover svg { transform: translateX(-3px); }
+
+    .event-info-card { }
+    .ei-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .ei-row:last-child { border-bottom: none; }
+    .ei-label { color: var(--text-muted); font-weight: 500; letter-spacing: 0.06em; }
+    .ei-value { color: var(--text-primary); font-weight: 600; font-family: var(--f-head); letter-spacing: 0.04em; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .col-layout { grid-template-columns: 1fr; }
+      .col-sidebar { position: static; }
+    }
+
+    @media (max-width: 768px) {
+      .col-hero { min-height: 50vh; padding-bottom: var(--s5); }
+      .col-hero-content { padding-top: 100px; }
+      .song-num { font-size: 2rem; width: 36px; }
+      .song-title { font-size: 1.3rem; }
+    }
+
+    @media (max-width: 480px) {
+      .col-hero-actions { flex-direction: column; }
+      .col-hero-actions .btn { width: 100%; justify-content: center; }
+      .song-header { gap: var(--s2); padding: var(--s3); }
+      .song-body { padding: var(--s3); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-img">
+        <img src="assets/logo_pn2.jpg" alt="Palanca Negra"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      </div>
+      <div class="nav-brand-text">
+        <span class="club">Clube de Desbravadores</span>
+        <span class="name">Palanca Negra</span>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Mudar tema" aria-label="Mudar tema">
+        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" style="display:none">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a href="index.html" class="btn btn-ghost" style="padding:8px 20px;font-size:12px">
+        ← Voltar ao Site
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ════ HERO ════ -->
+<section class="col-hero">
+  <div class="col-hero-bg"></div>
+
+  <!-- Music staff lines -->
+  <div class="col-hero-lines">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="120" x2="1200" y2="120" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="160" x2="1200" y2="160" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="200" x2="1200" y2="200" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="240" x2="1200" y2="240" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="280" x2="1200" y2="280" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="360" x2="1200" y2="360" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="400" x2="1200" y2="400" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="440" x2="1200" y2="440" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="480" x2="1200" y2="480" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="520" x2="1200" y2="520" stroke="white" stroke-width="1"/>
+      <!-- Note symbols scattered -->
+      <text x="80" y="145" fill="white" font-size="40" opacity="0.5">♩</text>
+      <text x="220" y="390" fill="white" font-size="32" opacity="0.3">♪</text>
+      <text x="450" y="175" fill="white" font-size="36" opacity="0.4">♫</text>
+      <text x="680" y="415" fill="white" font-size="44" opacity="0.35">♩</text>
+      <text x="900" y="155" fill="white" font-size="28" opacity="0.3">♪</text>
+      <text x="1060" y="395" fill="white" font-size="38" opacity="0.45">♫</text>
+    </svg>
+  </div>
+
+  <div class="col-hero-overlay"></div>
+
+  <div class="col-hero-content">
+    <div class="container">
+      <div class="col-hero-eyebrow" id="colEyebrow">
+        Desfile de Ordem Unida 2026 · Clube de Desbravadores Palanca Negra
+      </div>
+      <h1 class="col-hero-title" id="colTitle">
+        Hinos de<br/><em>Marcha</em>
+      </h1>
+      <p class="col-hero-desc" id="colDesc">
+        Coletânea musical · 28 de Junho de 2026 · Luanda, Angola
+      </p>
+      <div class="col-hero-actions" id="colActions">
+        <a href="assets/COLETÂNEA_DO_DESFILE_PN_1.pdf" download class="btn btn-gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Descarregar PDF
+        </a>
+        <a href="index.html" class="btn btn-ghost">← Voltar ao Site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ INDEX BAR ════ -->
+<div class="col-index">
+  <div class="container">
+    <div class="col-index-inner">
+      <span class="col-index-label">Músicas</span>
+      <a href="#medley" class="col-idx-btn">Medley</a>
+      <a href="#musica-1" class="col-idx-btn">1 · Com os Pés Empoeirados</a>
+      <a href="#musica-2" class="col-idx-btn">2 · Ó Cristãos, Avante!</a>
+      <a href="#musica-3" class="col-idx-btn">3 · Juventude Adventista</a>
+      <a href="#musica-4" class="col-idx-btn">4 · Firme nas Promessas</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MAIN CONTENT ════ -->
+<div class="container">
+  <div class="col-layout">
+
+    <!-- ── SONGS COLUMN ── -->
+    <div>
+
+      <!-- MEDLEY INTRO -->
+      <div id="medley" style="scroll-margin-top:140px; margin-bottom:var(--s4)" class="gs-fade">
+        <p class="section-label" style="margin-bottom:var(--s2)">Sequência</p>
+        <h2 class="section-title" style="margin-bottom:var(--s3)">Medley do Desfile</h2>
+        <div class="medley-banner">
+          <span class="mb-icon">🎵</span>
+          <div class="mb-text">
+            <strong>Ordem de execução</strong>
+            As músicas são executadas em sequência durante o desfile —
+            Com os Pés Empoeirados → Ó Cristãos, Avante! → Juventude Adventista → Firme nas Promessas.
+            Cada secção está detalhada abaixo.
+          </div>
+        </div>
+      </div>
+
+      <!-- MÚSICA 1 -->
+      <div class="song-card open gs-fade" id="musica-1">
+        <div class="song-header" onclick="toggleSong(this)">
+          <div class="song-num">1</div>
+          <div class="song-meta">
+            <div class="song-title">Com os Pés Empoeirados</div>
+            <div class="song-subtitle">Hino de Marcha · Abertura</div>
+          </div>
+          <div class="song-toggle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </div>
+        </div>
+        <div class="song-body">
+          <div class="lyric-section">
+            <div class="lyric-label">Estrofe Principal</div>
+            <div class="lyric-lines">
+              Com os pés empoeirados, com<br/>
+              os pisos falados, a vida é um<br/>
+              pavimento que pisamos.<br/>
+              Cada um de nós <em>(prontos!)</em>, os<br/>
+              soldados <em>(prontos!)</em>, prontos pra<br/>
+              combater quando o dever<br/>
+              chamar.
+            </div>
+          </div>
+          <div class="lyric-section">
+            <div class="lyric-label">Refrão de Marcha</div>
+            <div class="lyric-lines">
+              Direita volver, esquerda volver,<br/>
+              marca passo no compasso do<br/>
+              general.<br/>
+              Desbravadores <em>(eu quero servir)</em>,<br/>
+              Palanca Negra <em>(eu quero servir)</em>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÚSICA 2 -->
+      <div class="song-card gs-fade" id="musica-2">
+        <div class="song-header" onclick="toggleSong(this)">
+          <div class="song-num">2</div>
+          <div class="song-meta">
+            <div class="song-title">Ó Cristãos, Avante!</div>
+            <div class="song-subtitle">Hino de Marcha · Chamada</div>
+          </div>
+          <div class="song-toggle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </div>
+        </div>
+        <div class="song-body">
+          <div class="lyric-section">
+            <div class="lyric-label">Coro</div>
+            <div class="lyric-lines">
+              Ó cristãos, avante! Marchar,<br/>
+              marchar, marchar!<br/>
+              Pela cruz de Cristo com ardor<br/>
+              lutar.<br/>
+              Cristo, o nosso Mestre, guia o<br/>
+              batalhão.<br/>
+              No calor da guerra ergue Seu<br/>
+              perdão.
+            </div>
+          </div>
+          <div class="lyric-section">
+            <div class="lyric-label">Primeira Estrofe</div>
+            <div class="lyric-lines">
+              Ó cristãos, avante! Sem temor<br/>
+              marchar!<br/>
+              Pela cruz de Cristo com ardor<br/>
+              lutar.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÚSICA 3 -->
+      <div class="song-card gs-fade" id="musica-3">
+        <div class="song-header" onclick="toggleSong(this)">
+          <div class="song-num">3</div>
+          <div class="song-meta">
+            <div class="song-title">Juventude Adventista</div>
+            <div class="song-subtitle">Hino de Marcha · Consagração</div>
+          </div>
+          <div class="song-toggle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </div>
+        </div>
+        <div class="song-body">
+          <div class="lyric-section">
+            <div class="lyric-label">Estrofe</div>
+            <div class="lyric-lines">
+              Ó Juventude adventista!<br/>
+              Vamos sair a trabalhar<br/>
+              Salvar as almas que estão<br/>
+              perdidas, Levá-las ao celeste lar.<br/>
+              Não há tarefa mais gloriosa<br/>
+              Que este Evangelho anunciar<br/>
+              Ó Juventude brava e ditosa!<br/>
+              Jesus ordena trabalhar!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÚSICA 4 -->
+      <div class="song-card gs-fade" id="musica-4">
+        <div class="song-header" onclick="toggleSong(this)">
+          <div class="song-num">4</div>
+          <div class="song-meta">
+            <div class="song-title">Firme nas Promessas</div>
+            <div class="song-subtitle">Hino de Marcha · Encerramento</div>
+          </div>
+          <div class="song-toggle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </div>
+        </div>
+        <div class="song-body">
+          <div class="lyric-section">
+            <div class="lyric-label">Primeira Estrofe</div>
+            <div class="lyric-lines">
+              Firme nas promessas de Jesus,<br/>
+              Senhor<br/>
+              Vou cantar louvores ao meu bom<br/>
+              Pastor<br/>
+              Sempre exaltarei o seu eterno<br/>
+              amor<br/>
+              Firme nas promessas de Jesus
+            </div>
+          </div>
+          <div class="lyric-section">
+            <div class="lyric-label">Coro</div>
+            <div class="lyric-lines">
+              Firme, firme, firme nas<br/>
+              promessas de Jesus, meu Mestre.<br/>
+              Firme, firme,<br/>
+              sim, firme nas promessas de<br/>
+              Jesus
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /songs column -->
+
+    <!-- ── SIDEBAR ── -->
+    <div class="col-sidebar gs-fade">
+
+      <!-- Download -->
+      <div class="sidebar-card">
+        <h4>📥 Coletânea Completa</h4>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:var(--s3);font-weight:300">
+          Descarrega o PDF oficial da coletânea para teres as letras disponíveis offline durante o desfile.
+        </p>
+        <a href="assets/COLETÂNEA_DO_DESFILE_PN_1.pdf" download class="download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Descarregar PDF
+        </a>
+      </div>
+
+      <!-- Song index -->
+      <div class="sidebar-card">
+        <h4>🎵 Índice</h4>
+        <div class="sc-list">
+          <a href="#medley" class="sc-item">
+            <span class="sc-num">—</span>
+            Medley — Sequência Completa
+          </a>
+          <a href="#musica-1" class="sc-item">
+            <span class="sc-num">1</span>
+            Com os Pés Empoeirados
+          </a>
+          <a href="#musica-2" class="sc-item">
+            <span class="sc-num">2</span>
+            Ó Cristãos, Avante!
+          </a>
+          <a href="#musica-3" class="sc-item">
+            <span class="sc-num">3</span>
+            Juventude Adventista
+          </a>
+          <a href="#musica-4" class="sc-item">
+            <span class="sc-num">4</span>
+            Firme nas Promessas
+          </a>
+        </div>
+      </div>
+
+      <!-- Event info -->
+      <div class="sidebar-card event-info-card">
+        <h4>📅 Evento</h4>
+        <div class="ei-row">
+          <span class="ei-label">Data</span>
+          <span class="ei-value">28 Jun 2026</span>
+        </div>
+        <div class="ei-row">
+          <span class="ei-label">Partida</span>
+          <span class="ei-value">09:00</span>
+        </div>
+        <div class="ei-row">
+          <span class="ei-label">Local</span>
+          <span class="ei-value">IASD Central</span>
+        </div>
+        <div class="ei-row">
+          <span class="ei-label">Percurso</span>
+          <span class="ei-value">≈ 3.6 km</span>
+        </div>
+        <div style="margin-top:var(--s3)">
+          <a href="index.html#rota" class="btn btn-ghost" style="width:100%;justify-content:center;font-size:11px;padding:10px">
+            Ver Rota Completa →
+          </a>
+        </div>
+      </div>
+
+      <!-- Back -->
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Voltar ao site principal
+      </a>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /col-layout -->
+</div><!-- /container -->
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s3);padding:var(--s4) 0 0">
+      <p style="font-size:12px;color:var(--text-muted)">
+        © 2026 Clube de Desbravadores Palanca Negra · Todos os direitos reservados
+      </p>
+      <a href="index.html" class="btn btn-ghost" style="padding:8px 20px;font-size:11px">
+        ← Voltar ao Site
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ════ SCRIPTS ════ -->
+<script>
+/* GSAP fallback */
+if (typeof gsap === 'undefined') {
+  document.documentElement.classList.add('no-gsap');
+}
+
+/* Theme */
+(function() {
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const iconSun = document.getElementById('icon-sun');
+  const iconMoon = document.getElementById('icon-moon');
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    iconSun.style.display = theme === 'dark' ? 'block' : 'none';
+    iconMoon.style.display = theme === 'dark' ? 'none' : 'block';
+    localStorage.setItem('pn-theme', theme);
+  }
+
+  const saved = localStorage.getItem('pn-theme');
+  const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  applyTheme(saved || sys);
+
+  btn.addEventListener('click', () => {
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+
+/* Song accordion */
+function toggleSong(header) {
+  const card = header.closest('.song-card');
+  card.classList.toggle('open');
+}
+
+/* Nav hide/show on scroll */
+let lastScroll = 0;
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  const cur = window.scrollY;
+  if (typeof gsap !== 'undefined') {
+    if (cur > 100 && cur > lastScroll) {
+      gsap.to(header, { yPercent: -100, duration: 0.3, ease: 'power2.in' });
+    } else {
+      gsap.to(header, { yPercent: 0, duration: 0.3, ease: 'power2.out' });
+    }
+  }
+  lastScroll = cur;
+}, { passive: true });
+
+/* GSAP Animations */
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Hero entrance */
+  gsap.timeline({ delay: 0.1 })
+    .to('#colEyebrow', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0)
+    .fromTo('#colTitle',
+      { opacity: 0, y: 50, clipPath: 'inset(100% 0 0 0)' },
+      { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)', duration: 1, ease: 'expo.out' }, 0.2)
+    .to('#colDesc', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.7)
+    .to('#colActions', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.9);
+
+  /* Scroll reveals */
+  gsap.utils.toArray('.gs-fade').forEach((el, i) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.65, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+        delay: (i % 3) * 0.06
+      }
+    );
+  });
+
+  /* Active index highlight on scroll */
+  const sections = ['medley','musica-1','musica-2','musica-3','musica-4'];
+  const idxBtns = document.querySelectorAll('.col-idx-btn');
+
+  sections.forEach(id => {
+    ScrollTrigger.create({
+      trigger: '#' + id,
+      start: 'top center',
+      end: 'bottom center',
+      onToggle: self => {
+        if (self.isActive) {
+          idxBtns.forEach(b => b.style.color = '');
+          const active = document.querySelector(`.col-idx-btn[href="#${id}"]`);
+          if (active) active.style.color = 'var(--gold)';
+        }
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
