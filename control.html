@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Controlo — Localização do Desfile</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Barlow+Condensed:wght@600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     body { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:var(--s3); }
@@ -16,6 +16,9 @@
     }
     .ctrl-current .label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; }
     .ctrl-current .value { font-family:var(--f-head); font-size:1.4rem; font-weight:700; color:var(--gold); }
+    .ctrl-conn { text-align:center; font-size:11px; margin-bottom:var(--s3); }
+    .ctrl-conn.ok { color:#3B6D11; }
+    .ctrl-conn.err { color:var(--red); }
     .ctrl-grid { display:flex; flex-direction:column; gap:10px; }
     .ctrl-btn {
       display:flex; align-items:center; gap:12px; padding:16px;
@@ -43,6 +46,8 @@
       <div class="value" id="currentLabel">A carregar...</div>
     </div>
 
+    <div class="ctrl-conn" id="connStatus">A ligar ao Firebase...</div>
+
     <div class="ctrl-grid" id="pointsGrid">
       <!-- gerado por JS -->
     </div>
@@ -50,13 +55,24 @@
     <div class="ctrl-status" id="status"></div>
   </div>
 
+  <!-- Firebase SDK (compat, mais simples de usar sem build tools) -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+
   <script>
     // ════════════════════════════════════════
-    // CONFIGURAÇÃO — preenche com os teus dados do jsonbin.io
+    // CONFIGURAÇÃO FIREBASE — preenche com os dados do teu projecto
+    // (Firebase Console → Definições do Projecto → Os teus apps → Configuração SDK)
     // ════════════════════════════════════════
-    const BIN_ID = '6a2ea193f5f4af5e29f00ecf';
-    const API_KEY = '$2a$10$1Z7Nt8aViLZPQY//G3lBMusS/Ds56dQmavVUIExScEkHKfBX3hKtW';
-    const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+    const firebaseConfig = {
+		apiKey: "AIzaSyAmq6R_EDak8JMHOSd3f0eNf2qym-kCNOc",
+    	databaseURL: "https://desfile-palanca-default-rtdb.firebaseio.com",
+    	projectId: "desfile-palanca"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const locRef = db.ref('localizacao');
 
     // Pontos da rota — edita conforme necessário
     const PONTOS = [
@@ -75,6 +91,7 @@
     const grid = document.getElementById('pointsGrid');
     const currentLabel = document.getElementById('currentLabel');
     const status = document.getElementById('status');
+    const connStatus = document.getElementById('connStatus');
 
     function render(activeId) {
       grid.innerHTML = '';
@@ -87,41 +104,38 @@
       });
     }
 
-    async function loadCurrent() {
-      try {
-        const res = await fetch(`${API_URL}/latest`, {
-          headers: { 'X-Master-Key': API_KEY }
-        });
-        const data = await res.json();
-        const ponto = data.record.ponto || 0;
-        const p = PONTOS.find(x => x.id === ponto) || PONTOS[0];
-        currentLabel.textContent = p.label;
-        render(ponto);
-      } catch (e) {
-        currentLabel.textContent = 'Erro ao carregar';
-        render(0);
+    // Monitor de ligação ao Firebase
+    db.ref('.info/connected').on('value', snap => {
+      if (snap.val() === true) {
+        connStatus.textContent = '● Ligado ao Firebase';
+        connStatus.className = 'ctrl-conn ok';
+      } else {
+        connStatus.textContent = '○ Sem ligação — a tentar reconectar...';
+        connStatus.className = 'ctrl-conn err';
       }
-    }
+    });
+
+    // Lê o valor actual em tempo real (atualiza sozinho se mudar noutro lado)
+    locRef.on('value', snap => {
+      const data = snap.val();
+      const ponto = data && data.ponto !== undefined ? data.ponto : 0;
+      const p = PONTOS.find(x => x.id === ponto) || PONTOS[0];
+      currentLabel.textContent = p.label;
+      render(ponto);
+    }, err => {
+      currentLabel.textContent = 'Erro ao carregar';
+      render(0);
+    });
 
     async function updatePoint(p) {
       status.textContent = 'A actualizar...';
       status.className = 'ctrl-status';
       try {
-        const res = await fetch(API_URL, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Master-Key': API_KEY
-          },
-          body: JSON.stringify({
-            ponto: p.id,
-            label: p.label,
-            hora: new Date().toLocaleTimeString('pt-AO', { hour:'2-digit', minute:'2-digit' })
-          })
+        await locRef.set({
+          ponto: p.id,
+          label: p.label,
+          hora: new Date().toLocaleTimeString('pt-AO', { hour:'2-digit', minute:'2-digit' })
         });
-        if (!res.ok) throw new Error();
-        currentLabel.textContent = p.label;
-        render(p.id);
         status.textContent = `✓ Actualizado para: ${p.label}`;
         status.className = 'ctrl-status ok';
       } catch (e) {
@@ -129,8 +143,6 @@
         status.className = 'ctrl-status err';
       }
     }
-
-    loadCurrent();
   </script>
 </body>
 </html>

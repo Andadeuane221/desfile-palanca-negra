@@ -603,36 +603,38 @@ document.addEventListener('keydown', e => {
 });
 
 /* ═══════════════════════════════════════════
-   LOCALIZAÇÃO EM TEMPO REAL DO DESFILE
+   LOCALIZAÇÃO EM TEMPO REAL DO DESFILE (Firebase)
 ═══════════════════════════════════════════ */
 (function liveLocation() {
-  const BIN_ID = '6a2ea193f5f4af5e29f00ecf';
-  const API_KEY = '$2a$10$1Z7Nt8aViLZPQY//G3lBMusS/Ds56dQmavVUIExScEkHKfBX3hKtW';
-  const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}/latest`;
-
   const labelEl = document.getElementById('liveLocationLabel');
   const timeEl = document.getElementById('liveLocationTime');
   if (!labelEl) return;
 
-  async function fetchLocation() {
-    try {
-      const res = await fetch(API_URL, {
-        headers: { 'X-Master-Key': API_KEY }
-      });
-      const data = await res.json();
-      const record = data.record;
-      if (record.ponto === 0) {
-        labelEl.textContent = 'Desfile ainda não iniciado';
-        timeEl.textContent = '';
-      } else {
-        labelEl.textContent = record.label;
-        timeEl.textContent = record.hora ? `Actualizado às ${record.hora}` : '';
-      }
-    } catch (e) {
-      labelEl.textContent = 'Sem ligação ao servidor';
-    }
-  }
+  const firebaseConfig = {
+    apiKey: "AIzaSyAmq6R_EDak8JMHOSd3f0eNf2qym-kCNOc",
+    databaseURL: "https://desfile-palanca-default-rtdb.firebaseio.com",
+    projectId: "desfile-palanca"
+  };
 
-  fetchLocation();
-  setInterval(fetchLocation, 15000); // actualiza a cada 15 segundos
+  // Evita inicializar duas vezes se este script correr mais de uma vez
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.database();
+  const locRef = db.ref('localizacao');
+
+  // onValue = realtime de verdade — actualiza assim que o controlo.html escrever,
+  // sem precisar de polling/setInterval
+  locRef.on('value', snap => {
+    const record = snap.val();
+    if (!record || record.ponto === 0) {
+      labelEl.textContent = 'Desfile ainda não iniciado';
+      timeEl.textContent = '';
+    } else {
+      labelEl.textContent = record.label;
+      timeEl.textContent = record.hora ? `Actualizado às ${record.hora}` : '';
+    }
+  }, err => {
+    labelEl.textContent = 'Sem ligação ao servidor';
+  });
 })();
